@@ -1,0 +1,121 @@
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Dance Master MIX</title>
+		<link rel="stylesheet" type="text/css" href="interface.css" />
+	</head>
+	<body>
+		<div id="container">
+			<div id="resources"> 
+			</div>
+			<div id="pane1" class="pane">
+				<div class="panebuttons" id="pane1buttons">
+					<div class="panebutton activepane" id="storepb" onClick="paneToggle('store');">
+						Store
+					</div>
+					<div class="panebutton" id="exchangepb" onClick="paneToggle('exchange');">
+						Exchange
+					</div>
+				</div>
+				<div id="store">
+				</div>
+				<div id="exchange">
+					<div id="excamounts" class="amounttoggles">
+					Exchange amount:<br>
+						<div id="excamt1" class="actexcamt excamt" onClick="excMultiToggle(1)">x1</div>
+						<div id="excamt10" class="inactexcamt excamt" onClick="excMultiToggle(10)">x10</div>
+						<div id="excamt25" class="inactexcamt excamt" onClick="excMultiToggle(25)">x25</div>
+						<div id="excamt100" class="inactexcamt excamt" onClick="excMultiToggle(100)">x100</div>
+						<div id="excamtmax" class="inactexcamt excamt" onClick="excMultiToggle('max')">MAX</div>
+					</div>
+				</div>
+			</div>
+			<div id="pane2" class="pane">
+				<div class="panebuttons" id="pane2buttons">
+					<div class="panebutton activepane" id="forestpb" onClick="paneToggle('forest');">
+						Forest
+					</div>
+					<div class="panebutton" id="minepb" onClick="paneToggle('mine');">
+						Mines
+					</div>
+				</div>
+				<div id="trees">
+					<div id="currentaxe">Your axe: 
+						<span id="axename">none</span><br>
+						Power: <span id="axepower">0</span>
+					</div>
+					<div id="treestats">Currently chopping: 
+						<span id="treename">No tree</span><br>
+						Health: <span id="treehealth">0</span><br>
+						Yield: <span id="treeyield">0</span></div>
+					<div id="chopbutton" class="chops" onClick="chopTree()">Chop Tree!</div>
+					<div id="choplessbutton" class="chops">Chop Tree!</div>
+					<div id="treetimer"><div id="treebar"></div></div><br>
+					<div id="o_autochop" class="options" onClick="optionToggle('autochop')">Autochop</div>
+					<div id="spacer"></div><div id="treetime"></div><div></div>
+					<div id="forestdisplay">Selected Forest:<br><span id="fname">Meadow</span></div>
+					<div id="f_meadow" class="forestbutton" onClick="fSwap('meadow')">Meadow</div>
+					<div id="f_edge" class="forestbutton" onClick="fSwap('edge')">Forest Edge</div>
+				</div>
+					<div id="mines">
+						<div id="ovendiv">
+							<div id="ovenbuttonon" class="ovenbutton" onClick="fireOven();"><br>Fire it up</div>
+							<div id="ovenbuttonoff" class="ovenbutton"><br>Please wait...</div>
+							<input type="number" id="ovenamt" name="ovenamt" value=1 min="1"/>
+							<div id="ovenmax" onClick="ovenMaxButton();">MAX</div>
+							<div id="oventimer"><div id="ovenbar"></div></div>
+							<div id="oventime"></div>
+						</div
+						>
+						<div id="mineamounts" class="amounttoggles">
+						Purchase amount:<br>
+							<div id="mineamt1" class="actmineamt mineamt" onClick="mineMultiToggle(1)">x1</div>
+							<div id="mineamt10" class="inactmineamt mineamt" onClick="mineMultiToggle(10)">x10</div>
+							<div id="mineamt25" class="inactmineamt mineamt" onClick="mineMultiToggle(25)">x25</div>
+							<div id="mineamt100" class="inactmineamt mineamt" onClick="mineMultiToggle(100)">x100</div>
+<!-- 							<div id="mineamtmax" class="inactmineamt mineamt" onClick="mineMultiToggle('max')">MAX</div> -->
+						</div>
+				</div>
+			</div>
+			<div id="pane3" class="pane">
+				<div class="panebuttons" id="pane3buttons">
+					<div class="panebutton activepane" id="storypb" onClick="paneToggle('story');">
+						Story
+					</div>
+					<div class="panebutton" id="optionspb" onClick="paneToggle('options');">
+						Options
+					</div>
+				</div>
+				<div id="story">
+					<div id="begbutton" onClick="beg()" class="beg"> Beg for salt! </div>
+					<div id="beglessbutton" class="beg">Please wait . . . </div>
+					<div id="storybox">
+						<!-- <div id="storys1" class="story"> This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story.
+						</div><hr>
+						<div id="storys2" class="story"> This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. 
+						</div><hr>
+						<div id="storys3" class="story"> This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. </div> -->
+					</div>
+				</div>
+				<div id="options">
+					<div id="save" class="options" onClick="save();">Save Game</div>
+					<div id="load" class="options" onClick="load();">Load Game</div>
+					<div id="o_autosave" class="options" onClick="optionToggle('autosave')">Autosave</div><br>
+					<div id="savestatus"></div>
+					<div id="resetwarning">WARNING! Hard reset will wipe all progress for no benefit!</div>
+					<div id="hardreset" class="options" onClick="deleteSave();">HARD RESET</div><br>
+					<div id="links">
+						<a href="change.html" class="link"  target="_blank">Changelog</a><span id="credits" class="link" onClick='$("#creditbox").show();'>Credits</span><a href="https://discord.gg/SuRn49d" class="link"  target="_blank">Discord</a>
+					</div>
+					<div id="creditbox"><span id="creditclose" onClick='$("#creditbox").hide();'>[x]</span><br>cornucanis: That's me! For making the game!<br><br>fuzzything44: For helping me work through some dev issues.<br><br>kawaritai: For creating swarm-numberformat.js and making it public. Great number formatting library!</div>
+				</div>
+			</div>
+		</div>
+<!-- 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+		<script src="main.js"></script>
+		<script src="story.js"></script>
+		<script src="jquery.min.js"></script>
+		<script src="jquery.color-2.1.2.js"></script>
+		<script src="swarm-numberformat.min.js"></script>
+	</body>
+</html>

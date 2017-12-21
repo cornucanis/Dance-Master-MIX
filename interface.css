@@ -1,0 +1,707 @@
+body {
+background-color: #411;
+font-family:"Courier New", Courier, monospace;
+}
+
+#container {
+height:800px;
+background-color: #143;
+}
+
+#resources {
+position:relative;
+width:16%;
+float:left;
+background-color: #223;
+height:800px;
+text-align:center;
+}
+
+#exchangepb {
+display:none;
+}
+
+#minepb {
+display:none;
+} 
+
+.resname {
+font-weight:bold;
+text-shadow:1px 1px 10px #F88;
+background-color:#321;
+border: 1px solid #622;
+}
+
+.resource {
+font-size: 18px;
+padding-top:10px;
+padding-bottom:10px;
+margin-top:10px;
+color: #8EE;
+position:relative;
+display:inline-block;
+width: calc(100% - 10px);
+border-radius: 10px;
+background-color: #411;
+border: 3px double #D99;
+}
+
+.panebuttons {
+position:relative;
+height:30px;
+border-bottom: 2px solid lightgreen;
+background-color:#444;
+}
+
+
+.panebutton{
+text-align:center;
+display:inline-block;
+width:calc(50% - 10px);
+float:left;
+height:calc(100% - 10px);
+border:5px solid black;
+background-color: #222;
+color: #AAA;
+cursor:pointer;
+}
+
+
+.activepane {
+height:calc(100% - 5px);
+background-color: #DFD;
+color:black;
+border:5px solid lightgreen;
+border-bottom: none;
+cursor:default;
+}
+
+
+.panebutton:hover {
+background-color: #555;
+color:#DDD;
+cursor:pointer;
+}
+
+.activepane:hover {
+background-color: #DFD;
+color:black;
+cursor:default;
+}
+
+
+.pane {
+background-color: #DDF;
+}
+
+#pane1 {
+position:relative;
+width:calc(28% - 4px);
+border-left: 2px solid pink;
+border-right: 2px solid pink;
+float:left;
+height:800px;
+display:none;
+}
+
+#pane2 {
+position:relative;
+width:calc(28% - 2px);
+border-right: 2px solid pink;
+float:left;
+height:800px;
+display:none;
+}
+
+#pane3 {
+position:relative;
+width:28%;
+float:left;
+height:800px;
+}
+
+#store {
+text-align:center;
+}
+
+#exchange {
+display: none;
+text-align:center;
+}
+
+#trees {
+text-align: center;
+}
+
+#mines {
+display: none;
+text-align:center;
+}
+
+#options {
+display: none;
+text-align: center;
+}
+
+#story {
+text-align: center;
+position:relative;
+height:770px;
+width:100%;
+overflow-y:auto;
+overflow-x:hidden;
+}
+
+.storeitem {
+color:#CDF;
+position:relative;
+width:90%;
+border:2px solid black;
+border-radius:15px;
+margin-top:15px;
+text-align:center;
+background-color:#632;
+display:inline-block;
+}
+
+.storenobuy {
+background-color:#555;
+color:#AAA;
+}
+
+.storeitem:hover {
+background-color:#953;
+color:#FFF;
+cursor: pointer;
+}
+
+.storenobuy:hover {
+background-color:#555;
+color:#AAA;
+cursor:default;
+}
+
+.amounttoggles {
+display:inline-block;
+background-color:#CCE;
+top:2px;
+right:2px;
+width:auto;
+height:auto;
+margin-bottom:2px;
+}
+
+.excamt {
+display:inline-block;
+height:20px;
+border:1px solid #88A;
+background-color:#AAC
+}
+
+.actexcamt {
+background-color:#EEF;
+}
+
+.inactexcamt:hover {
+background-color:#DDF;
+color:#337;
+cursor:pointer;
+}
+
+.excdiv {
+background-color:#D91;
+display:inline-block;
+width:85%;
+height:60px;
+margin-top:10px;
+border: 2px solid #511
+}
+
+.excunlock{
+background-color:#444;
+color:#999;
+border: 2px solid #DA5;
+}
+
+.excunlock:hover {
+background-color:#888;
+color:#111;
+cursor:pointer
+}
+
+.exctrade {
+display:inline-block;
+width:40%;
+background-color:#DB9;
+border:1px solid black;
+color:#411;
+}
+
+.exctrade:hover {
+background-color:#FEA;
+color: #744;
+cursor:pointer
+}
+
+.excnotrade {
+background-color:#777;
+color:#BBB
+}
+
+.excnotrade:hover {
+cursor:default;
+background-color:#777;
+color:#BBB
+}
+
+
+
+.excname {
+font-weight:bold;
+color:#AEC;
+text-shadow:0px 0px 2px #000;
+}
+
+#currentaxe {
+display:inline-block;
+position:relative;
+width:95%;
+border:2px double black;
+color:#D11;
+background-color:white
+}
+
+.forestbutton {
+position:relative;
+display:inline-block;
+background-color:#5A8;
+color:#FFF;
+width:40%;
+border: 2px solid #5A5;
+margin-top:20px;
+}
+
+#treestats {
+margin-top:20px;
+display:inline-block;
+width:95%;
+border: 2px double green;
+background-color:#AAC;
+color:#153
+}
+
+.chops {
+height:20px;
+padding:3px;
+background-color:#941;
+border: 2px solid white;
+border-radius:8px;
+display:inline-block;
+width:45%;
+margin-top:5px;
+color:white;
+}
+
+#choplessbutton {
+display:none;
+background-color:#510;
+color:#999;
+border-color:#333;
+}
+
+#chopbutton:hover {
+background-color:#E84;
+cursor:pointer;
+color:black;
+}
+
+#treetimer {
+margin-top:5px;
+height:10px;
+width:50%;
+display:inline-block;
+border:2px solid blue;
+border-radius:15px;
+}
+
+#treetime {
+display:inline-block;
+color:#E44;
+height:16px;
+font-size:16px;
+}
+
+#treebar {
+position:relative;
+width:0%;
+height:10px;
+background-color:#7C8;
+}
+
+#forestdisplay {
+margin-top:60px;
+display:inline-block;
+width:85%;
+background-color:#AAC;
+border:2px double green;
+color:#153;
+padding-top:5px;
+padding-bottom:5px;
+}
+
+#fname {
+background-color:#CCD;
+padding-left:5px;
+padding-right:5px;
+padding-bottom:0px;
+color:black;
+}
+
+.forestbutton:hover {
+background-color:#8EA;
+cursor:pointer;
+color:#222
+}
+
+#ovendiv {
+display:none;
+width:95%;
+height:100px;
+margin-top:10px;
+margin-bottom:10px;
+background-color: #C1C1C1;
+border: 2px double green;
+}
+
+.ovenbutton {
+display: inline-block;
+width:25%;
+height:80%;
+margin-top:8px;
+margin-left:10px;
+float:left;
+line-height: 18px;
+border: 2px solid #D99;
+}
+
+#ovenbuttonon {
+background-color:#744;
+color:#D99;
+}
+
+#ovenbuttonon:hover {
+background-color:#D99;
+color:#FCC;
+cursor:pointer;
+}
+
+#ovenbuttonoff {
+display:none;
+background-color:#522;
+color:#A66;
+border-color:#A88;
+}
+
+#ovenamt {
+display:inline-block;
+background-color:#EDD;
+color:#944;
+width:45%;
+}
+
+#ovenmax {
+display:inline-block;
+background-color:#988;
+color:#DCC;
+border:1px solid #622;
+}
+
+#ovenmax:hover {
+background-color:#BAA;
+color:#EDD;
+cursor:pointer
+}
+
+#oventimer {
+display:inline-block;
+border:2px solid black;
+border-radius:6px;
+margin-top:20px;
+width:60%;
+height:10px;
+}
+
+#ovenbar {
+position:relative;
+height:10px;
+width:0%;
+background-color:#4A7;
+}
+
+#oventime {
+margin-top:7px;
+color:#744;
+}
+
+.minearea {
+position:relative;
+display:inline-block;
+width:95%;
+background-color:#88A888;
+margin-top:15px;
+text-align:center;
+height:80px;
+line-height:50px;
+border:4px solid #374;
+color:#FDF;
+text-shadow:0px 0px 5px black;
+}
+
+.mineamt {
+display:inline-block;
+height:20px;
+border:1px solid #88A;
+background-color:#AAC
+}
+
+.actmineamt {
+background-color:#EEF;
+}
+
+.inactmineamt:hover {
+background-color:#DDF;
+color:#337;
+cursor:pointer;
+}
+
+.mineamt {
+
+}
+
+.minename {
+
+}
+
+.minesub {
+position:absolute;
+display:inline-block;
+width:calc(50% - 4px);
+height:26px;
+line-height:26px;
+background-color:#898;
+bottom:0px;
+border:2px solid #374;
+border-top:5px solid #374;
+}
+
+.minecost {
+left:0px;
+}
+
+.mineprod {
+right:0px;
+}
+
+.minearea:hover {
+background-color:#DDE9DD;
+border-color:#596;
+color:#757;
+cursor:pointer;
+text-shadow:0px 0px 2px white;
+}
+
+.minearea:hover div {
+background-color:#BCB;
+border-color:#596;
+cursor:pointer;
+}
+
+.minenobuy {
+background-color:#555;
+border-color:#777;
+color:#CCC;
+text-shadow:none
+}
+
+.minenobuy div {
+ background-color:#555;
+  border-color:#777;
+}
+
+.minenobuy:hover {
+cursor:default;
+background-color:#555;
+border-color:#777;
+color:#CCC;
+text-shadow:none
+}
+
+.minenobuy:hover div {
+background-color:#555;
+border-color:#777;
+cursor:default
+}
+
+#storybox {
+background-color:#CCD;
+color:#663;
+text-shadow:0px 0px 1px #E99;
+border-top:3px double #9E9;
+}
+
+#storybox hr {
+height:2px;
+border:2px solid #5A5;
+width:95%;
+border-radius:5px;
+background-color:#BBF
+}
+
+.story {
+background-color:#D5D5DD;
+border-top:2px solid #CEC;
+border-bottom:2px solid #CEC;
+}
+
+#beglessbutton {
+background-color: #333;
+border-color: black;
+color: #CCC;
+display:none;
+}
+
+#begbutton:hover {
+background-color: #BDF;
+cursor:pointer;
+color:black;
+}
+
+.beg {
+margin:20px;
+display:inline-block;
+position:relative;
+width:90%;
+text-align:center;
+background-color:#9CF;
+color: darkgreen;
+border: 2px dotted cyan;
+border-radius: 10px;
+height:20px;
+}
+
+#resetwarning {
+color:#DAA;
+background-color:black;
+position:absolute;
+bottom:30px;
+left:10px;
+width:45%;
+border: 1px solid red;
+font-size:10px;
+}
+
+#hardreset {
+position:absolute;
+bottom:30px;
+right:10px;
+}
+
+#links {
+position:absolute;
+bottom:5px;
+right:5px;
+width:calc(100% - 10px);
+background-color: #CCE;
+height:20px;
+display:inline-block;
+text-decoration:underline;
+color:#A42;
+}
+
+.link {
+color:#A42;
+margin-left:15px;
+margin-right:15px;
+}
+
+.link:hover {
+color:#E75;
+cursor:pointer;
+}
+
+#savestatus {
+position:relative;
+display:inline-block;
+width:50%;
+background-color: #BBD;
+height:14px;
+font-size:14px;
+margin-top:15px;
+text-align:center;
+color: #662;
+}
+
+.options {
+position:relative;
+display:inline-block;
+width:45%;
+border: 2px solid green;
+background-color: #A68;
+color:white;
+margin-top:20px;
+}
+
+#creditbox {
+  height:300px;
+  right:0px;
+  bottom:0px;
+  position:absolute;
+  z-index:2;
+  display:none;
+border:2px solid #E88;
+width:calc(100% - 4px);
+background-color:black;
+color:#E8A;
+text-shadow:0px 0px 0px #1CF;
+}
+
+#creditclose {
+position:absolute;
+color:#DA1;
+right:3px;
+}
+
+#creditclose:hover {
+color:#FD8;
+  cursor:pointer;
+}
+
+#o_autochop {
+position:relative;
+display:inline-block;
+width:auto;
+height:auto;
+margin-top:0px;
+font-size:10px;
+}
+
+.options:hover {
+background-color: #D9B;
+cursor:pointer;
+}
+
+.optionoff {
+background-color:#612;
+color:#AAA;
+}
+
+.optionoff:hover {
+background-color:#923;
+color:#CCC
+}
+
+#changes {
+height:100%;
+width:100%;
+background-color:#FEE;
+}
