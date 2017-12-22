@@ -1,7 +1,7 @@
 
 var storyText = {
 	s1: {
-		text: "I awoke on the side of the road reeking of bodily fluids. Ugh. Piercing headache. I really shouldn't have gotten so wasted last night. I have to lay off the syrup. I can't keep living like this. Something has to change. It's already hard enough to get by as a begger when you're not hungover and reeking. Well, I guess it's time to see how generous the citizens are feeling today.",
+		text: "<p>I awoke on the side of the road reeking of bodily fluids. Ugh. Piercing headache. I really shouldn't have gotten so wasted last night. I have to lay off the syrup.</p>I can't keep living like this. <br><br>Something has to change.<p>It's already hard enough to get by as a begger when you're not hungover and reeking. Well, I guess it's time to see how generous the citizens are feeling today.</p>",
 		price: {
 			type:"resource",
 			res:"salt",
@@ -12,7 +12,7 @@ var storyText = {
 		},
 	},
 	s2: {
-		text: "Well, thanks to the generosity of the city's denizens I've managed to amass 30 salt. That's enough to buy a couple pints down at the pub! I start heading down the street to the pub, but on the way I pass through the market district and begin to reconsider my priorities.. Perhaps it's time to begin investing my salt in wiser ventures that don't leave me feeling miserable the next morning . . .",
+		text: "<p>Well, thanks to the generosity of the city's denizens I've managed to amass 30 salt. That's enough to buy a couple pints down at the pub! I start heading down the street to the pub, but on the way I pass through the market district and begin to reconsider my priorities..</p><p>Perhaps it's time to begin investing my salt in wiser ventures that don't leave me feeling miserable the next morning . . .</p>",
 		price: {
 			type:"resource",
 			res:"salt",
@@ -26,7 +26,7 @@ var storyText = {
 		},
 	},
 	s3: {
-		text: "A weapon! Perfect! Now I can start mugging people for pub money! Wait.. That's the old way of thinking. I'm better than that now. I'm sure there are better uses for this hatchet. After using my new weapon as an aid to \"consult\" with a few people I eventually determine that I can use it to chop down the cinnamon trees that grow on the outskirts of town. That's great news! A big ol' stick will be a great aid for future consultations! For some reason just having this weapon already seems to make people more generous when I'm begging.",
+		text: "<p>A weapon! Perfect! Now I can start mugging people for pub money! Wait.. That's the old way of thinking. I'm better than that now. I'm sure there are better uses for this hatchet. After using my new weapon as an aid to \"consult\" with a few people I eventually determine that I can use it to chop down the cinnamon trees that grow on the outskirts of town.</p><p>That's great news! A big ol' stick will be a great aid for future consultations! For some reason just having this weapon already seems to make people more generous when I'm begging.</p>",
 		price: {
 			type:"item",
 			value:"nohandle"
@@ -39,7 +39,7 @@ var storyText = {
 		},
 	},
 	s4: {
-		text: "This is pretty fun! I don't know why I didn't start gathering sticks sooner! Nobody gives you any trouble when you pull out a big stick. Things are starting to look up for me, but I'm still not satisfied. Surely there must be a way for me to amass even more power. After using my big stick to consult with a few more people I finally learn that I can sell these sticks for salt! My latest cowering friend points me towards the exchange and I give him a big whack with my stick as thanks. I arrive at the exchange ready to do some work with my stick, but I'm dismayed to find that everyone here has their own sticks. A guy with a very big stick asks me what I'm doing here and I explain to him that I'm just looking around. He tells me that nothing is free here and if I can't afford the entry fee I'll have to either leave or come back with a much bigger stick. I guess I'll have to pay for my entry like everyone else... It's enough to make a guy want to just head down to the pub.",
+		text: "<p>This is pretty fun! I don't know why I didn't start gathering sticks sooner! Nobody gives you any trouble when you pull out a big stick. Things are starting to look up for me, but I'm still not satisfied. Surely there must be a way for me to amass even more power.</p><p>After using my big stick to consult with a few more people I finally learn that I can sell these sticks for salt! My latest cowering friend points me towards the exchange and I give him a big whack with my stick as thanks.</p><p>I arrive at the exchange ready to do some work with my stick, but I'm dismayed to find that everyone here has their own sticks. A guy with a very big stick asks me what I'm doing here and I explain to him that I'm just looking around.</p><p>He tells me that nothing is free here and if I can't afford the entry fee I'll have to either leave or come back with a much bigger stick. I guess I'll have to pay for my entry like everyone else... It's enough to make a guy want to just head down to the pub.</p>",
 		price: {
 			type:"resource",
 			res:"cinnamon",
@@ -53,7 +53,7 @@ var storyText = {
 		},
 	},
 	s5: {
-		text: "Now we're talking! I can really earn some salt at this exchange. Who needs begging with this kind of payoff? Of course it still doesn't hurt to beg on my way around town... I'm getting tired of this hatchet, though. I should really get one with a handle. I should easily be able to afford a better axe now which will make chopping these trees easier.",
+		text: "<p>Now we're talking! I can really earn some salt at this exchange. Who needs begging with this kind of payoff? Of course it still doesn't hurt to beg on my way around town...</p><p>I'm getting tired of this hatchet, though. I should really get one with a handle. I should easily be able to afford a better axe now which will make chopping these trees easier.</p>",
 		price: {
 			type:"exchange",
 			value:"cinnamon"
@@ -63,7 +63,7 @@ var storyText = {
 		},
 	},
 	s6: {
-		text: "I'm feeling pretty wealthy now. I don't think I really need to beg any more. I've been spending a lot of time at the cinnamon exchange lately. There are a lot of people coming and going here, but I can't help noticing that the business here pales in comparison to the volume of business received by the sugar exchange next door. I need to find out more about this \"sugar\" stuff. I watch one of the patrons exit the exchange and follow him into an alley before brandishing my hatchet. He seems to be a friendly guy as he is quick to explain this substance. Apparently \"sugar\" is a very spicy seasoning that it can be obtained by finding and breaking up sugar rocks. I give him a whack on the noggin with my hatchet to thank him for being so helpful. I've seen a lot of people with rock gardens around town. I bet if I pay the guards some salt to look the other way I can gather my sugar from these gardens.",
+		text: "<p>I'm feeling pretty wealthy now. I don't think I really need to beg any more.</p><p>I've been spending a lot of time at the cinnamon exchange lately. There are a lot of people coming and going here, but I can't help noticing that the business here pales in comparison to the volume of business received by the sugar exchange next door.</p>I need to find out more about this \"sugar\" stuff.<p>I watch one of the patrons exit the exchange and follow him into an alley before brandishing my hatchet. He seems to be a friendly guy as he is quick to explain this substance.</p><p>Apparently \"sugar\" is a very spicy seasoning that it can be obtained by finding and breaking up sugar rocks. I give him a whack on the noggin with my hatchet to thank him for being so helpful.</p><p>I've seen a lot of people with rock gardens around town. I bet if I pay the guards some salt to look the other way I can gather my sugar from these gardens.</p>",
 		price: {
 			type:"item",
 			value:"plain"
@@ -76,7 +76,7 @@ var storyText = {
 		},
 	},
 	s7: {
-		text: "This isn't so hard after all! I've only had to thank a few people with my hatchet for letting me make use of their gardens. I'd already paid the guards so they used their axes to help me thank the citizens too! How thoughtful! I can almost afford to enter the sugar exchange now. I'm so excited; judging by the volume of activity at the sugar exchange I know this stuff must be worth a fortune!",
+		text: "<p>This isn't so hard after all! I've only had to thank a few people with my hatchet for letting me make use of their gardens. I'd already paid the guards so they used their axes to help me thank the citizens too! How thoughtful!</p><p> I can almost afford to enter the sugar exchange now. I'm so excited; judging by the volume of activity at the sugar exchange I know this stuff must be worth a fortune!</p>",
 		price: {
 			type:"resource",
 			res:"sugar",
@@ -88,7 +88,7 @@ var storyText = {
 		},
 	},
 	s8: {
-		text: "At last, the day has arrived. I have amassed enough sugar to finally enter the much anticipated sugar exchange. Unfortunately, things are not always so simple in life. I enter the exchange with resounding disappointment. This stuff is almost worthless! Why could there possibly be so many people doing business here? Thankfully I know how to get information by now. With my hatchet in tow, I follow an unsuspecting exchange patron into an alley. By the time I get an explanation from him there's a puddle under him that I didn't notice before. Huh. I wonder where that came from. I thank him over the head with my axe and move on. It turns out, he explained, that sugar is far too spicy of a seasoning for anybody to enjoy in its natural state. The people at the sugar exchange are there to buy sugar for processing into cubes. The sugar cubes are produced by putting sugar into an oven, and people use the sugar cubes as a seasoning to make stews spicier. I guess I should head down to the market and buy myself an oven.",
+		text: "<p>At last, the day has arrived. I have amassed enough sugar to finally enter the much anticipated sugar exchange.</p><p>Unfortunately, things are not always so simple in life. I enter the exchange with resounding disappointment.</p><p>This stuff is almost worthless! Why could there possibly be so many people doing business here? Thankfully I know how to get information by now.</p><p>With my hatchet in tow, I follow an unsuspecting exchange patron into an alley. By the time I get an explanation from him there's a puddle under him that I didn't notice before. Huh. I wonder where that came from. I thank him over the head with my axe and move on.</p><p>It turns out, he explained, that sugar is far too spicy of a seasoning for anybody to enjoy in its natural state. The people at the sugar exchange are there to buy sugar for processing into cubes.</p><p>The sugar cubes are produced by putting sugar into an oven, and people use the sugar cubes as a seasoning to make stews spicier. I guess I should head down to the market and buy myself an oven.</p>",
 		price: {
 			type:"exchange",
 			value:"sugar"
@@ -100,7 +100,7 @@ var storyText = {
 		},
 	},
 	s9: {
-		text: "According to the instruction manual for this oven it can produce up to 100 cubes in a batch. Furthermore, each batch takes 60 seconds to cook. Thankfully the sugar cube exchange only costs 10 cubes for entry so I should be able to find out if this was all worth it very soon.",
+		text: "<p>According to the instruction manual for this oven it can produce up to 100 cubes in a batch. Furthermore, each batch takes 60 seconds to cook. Thankfully the sugar cube exchange only costs 10 cubes for entry so I should be able to find out if this was all worth it very soon.</p>",
 		price: {
 			type:"item",
 			value:"basicoven"

@@ -17,6 +17,11 @@ height:800px;
 text-align:center;
 }
 
+#version {
+color:#844;
+text-shadow:1px 1px 1px #E99;
+}
+
 #exchangepb {
 display:none;
 }
@@ -561,6 +566,11 @@ background-color:#BBF
 background-color:#D5D5DD;
 border-top:2px solid #CEC;
 border-bottom:2px solid #CEC;
+  text-align:left;
+}
+
+.story p {
+  text-indent:30px;
 }
 
 #beglessbutton {

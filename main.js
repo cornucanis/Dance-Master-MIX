@@ -185,10 +185,6 @@ function beg() {
 	if (player.flags.story.s3 == true) {
 		begAmt = 10;
 	};
-	player.resources.salt.amount += Math.ceil(Math.random() * begAmt);
-	$("#saltamt").html(player.resources.salt.amount);
-	flash("r_salt", "#411", "#966", 400);
-	flash("salt_n", "#321", "#966", 400);
 	$("#begbutton").hide();
 	$("#beglessbutton").show();
 	begTimer = setTimeout(function() {
@@ -198,7 +194,13 @@ function beg() {
 	$("#beglessbutton").animate(
 		{width:"0%"},
 		2000,
-		function() {$(this).css("width","90%")})
+		function() {
+			$(this).css("width","90%");
+				player.resources.salt.amount += Math.ceil(Math.random() * begAmt);
+				$("#saltamt").html(player.resources.salt.amount);
+				flash("r_salt", "#411", "#966", 400);
+				flash("salt_n", "#321", "#966", 400);
+		})
 }
 
 function drawResource(res) {
@@ -736,3 +738,8 @@ window.onload=function() {
 
 // > general cleanup:
 // > offline production
+// > "wall of text" story issue
+// > autochop cooldown indicator
+
+// > long term:
+// > mobile styling?

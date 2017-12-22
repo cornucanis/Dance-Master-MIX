@@ -1,1 +1,3 @@
+0.1.1 - Minor fixes. Beg button now gives gains when timer finishes rather than when you press the button. Attempt to alleviate walls of text somewhat.
+
 0.1.0 - Initial release. Nothing to note!
