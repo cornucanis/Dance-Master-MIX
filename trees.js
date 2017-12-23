@@ -80,21 +80,13 @@ function chopTree() {
 		var selFor = player.flags.forestLocale;
 		var rnd = Math.ceil(forests[selFor].l * Math.random());
 		if (forests[selFor].a && rnd <= forests[selFor].a.cap) {
-			currentTree.name = trees[forests[selFor].a.name].name;
-			currentTree.health = trees[forests[selFor].a.name].health;
-			currentTree.yield = trees[forests[selFor].a.name].yield
+			$.extend(currentTree, trees[forests[selFor].a.name])
 		} else if (forests[selFor].b && rnd <= forests[selFor].b.cap) {
-			currentTree.name = trees[forests[selFor].b.name].name;
-			currentTree.health = trees[forests[selFor].b.name].health;
-			currentTree.yield = trees[forests[selFor].b.name].yield
+			$.extend(currentTree, trees[forests[selFor].a.name])
 		} else if (forests[selFor].c && rnd <= forests[selFor].c.cap) {
-			currentTree.name = trees[forests[selFor].c.name].name;
-			currentTree.health = trees[forests[selFor].c.name].health;
-			currentTree.yield = trees[forests[selFor].c.name].yield
+			$.extend(currentTree, trees[forests[selFor].a.name])
 		} else if (forests[selFor].d && rnd <= forests[selFor].d.cap) {
-			currentTree.name = trees[forests[selFor].d.name].name;
-			currentTree.health = trees[forests[selFor].d.name].health;
-			currentTree.yield = trees[forests[selFor].d.name].yield
+			$.extend(currentTree, trees[forests[selFor].a.name])
 		}
 		tmpMod = (variance(10,0.8,1.2) / 10);
 		currentTree.health = Math.round(tmpMod * currentTree.health);
@@ -125,7 +117,7 @@ function chopTree() {
 			player.resources.cinnamon.amount += currentTree.yield;
 			flash("r_cinnamon", "#411", "#966", 400);
 			flash("cinnamon_n", "#321", "#966", 400);
-			currentTree = trees.none;
+			$.extend(currentTree, trees.none)
 			$("#choplessbutton").removeClass("chopping");
 			$("#choplessbutton").hide();
 			$("#chopbutton").show();

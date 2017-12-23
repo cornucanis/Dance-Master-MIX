@@ -590,7 +590,7 @@ function excCheck() {
 			)
 		};
 		if ($("#" + res + "exchange").html() && multiSelect.exchange == "max") {
-			$("#" + res + "buy").html(Math.floor(numberformat.formatShort(player.resources.salt.amount / exchange[res].buy) * exchange[res].buy));
+			$("#" + res + "buy").html(numberformat.formatShort(Math.floor(player.resources.salt.amount / exchange[res].buy) * exchange[res].buy));
 			$("#" + res + "sell").html(numberformat.formatShort(Math.floor(player.resources[res].amount) * exchange[res].sell));
 			if (player.resources.salt.amount < exchange[res].buy) {
 				$("#buy" + res).addClass("excnotrade");
