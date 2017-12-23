@@ -139,7 +139,7 @@ $("#choplessbutton").removeClass("chopping");
 $("#choplessbutton").hide();
 $("#chopbutton").show();
 $("#treetime").html("");
-currentTree = trees.none;
+$.extend(currentTree, trees.none);
 treeHtml();
 clearTimeout(acTimer);
 }
