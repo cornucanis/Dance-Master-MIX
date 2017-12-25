@@ -583,15 +583,17 @@ function excCheck() {
 		if (player.flags[res].unlocked && !$("#" + res + "exchange").html()) {
 			$("#exchange").append(
 				"<div id='" + res + "exchange' class='excdiv'><span id='" + res + "excname' class='excname'>" + player.resources[res].name + "</span><br>" +
-				"<div id='buy" + res + "' class='excbuy exctrade' onClick='exchangeF(\"buy\",\"" + res + "\")'>Buy:<br><span id='" + res + "buy'>" + 
-				exchange[res].buy * multiSelect.exchange + "</span> Salt</div>" + 
-				"<div id='sell" + res + "' class='excsell exctrade' onClick='exchangeF(\"sell\",\"" + res + "\")'>Sell:<br><span id='" + res + "sell'>" +
-				exchange[res].sell * multiSelect.exchange + "</span> Salt</div></div>"
+				"<div id='buy" + res + "' class='excbuy exctrade tooltipparent' onClick='exchangeF(\"buy\",\"" + res + "\")'>Buy:<br><span class='" + res + "buy'>" + 
+				exchange[res].buy * multiSelect.exchange + "</span> Salt<span id='" + res + "buytooltip' class='tooltiptext'>Buy <span class='buymulti" + res + "'>" + multiSelect.exchange + "</span> " + player.resources[res].name + " for <span class='" + res + "buy'>" + exchange[res].buy * multiSelect.exchange + "</span> Salt.</span></div>" + 
+				"<div id='sell" + res + "' class='excsell exctrade tooltipparent' onClick='exchangeF(\"sell\",\"" + res + "\")'>Sell:<br><span class='" + res + "sell'>" +
+				exchange[res].sell * multiSelect.exchange + "</span> Salt<span id='" + res + "selltooltip' class='tooltiptext'>Sell <span class='sellmulti" + res + "'>" + multiSelect.exchange + "</span> " + player.resources[res].name + " for <span class='" + res + "sell'>" + exchange[res].sell * multiSelect.exchange + "</span> Salt.</span></div></div>"
 			)
 		};
 		if ($("#" + res + "exchange").html() && multiSelect.exchange == "max") {
-			$("#" + res + "buy").html(numberformat.formatShort(Math.floor(player.resources.salt.amount / exchange[res].buy) * exchange[res].buy));
-			$("#" + res + "sell").html(numberformat.formatShort(Math.floor(player.resources[res].amount) * exchange[res].sell));
+			$("." + res + "buy").html(numberformat.formatShort(Math.floor(player.resources.salt.amount / exchange[res].buy) * exchange[res].buy));
+			$("." + res + "sell").html(numberformat.formatShort(Math.floor(player.resources[res].amount) * exchange[res].sell));
+			$(".sellmulti" + res).html(Math.floor(player.resources[res].amount));
+			$(".buymulti" + res).html(Math.floor(player.resources.salt.amount / exchange[res].buy));
 			if (player.resources.salt.amount < exchange[res].buy) {
 				$("#buy" + res).addClass("excnotrade");
 			} 
@@ -605,8 +607,10 @@ function excCheck() {
 				$("#sell" + res).removeClass("excnotrade")
 			}
 		} else if ($("#" + res + "exchange").html()) {
-			$("#" + res + "buy").html(numberformat.formatShort(multiSelect.exchange * exchange[res].buy));
-			$("#" + res + "sell").html(numberformat.formatShort(multiSelect.exchange * exchange[res].sell));
+			$("." + res + "buy").html(numberformat.formatShort(multiSelect.exchange * exchange[res].buy));
+			$("." + res + "sell").html(numberformat.formatShort(multiSelect.exchange * exchange[res].sell));
+			$(".sellmulti" + res).html(multiSelect.exchange);
+			$(".buymulti" + res).html(multiSelect.exchange);
 			if (player.resources.salt.amount < multiSelect.exchange * exchange[res].buy) {
 				$("#buy" + res).addClass("excnotrade");
 			}
@@ -738,7 +742,7 @@ window.onload=function() {
 
 // > general cleanup:
 // > offline production
-// > "wall of text" story issue
+// > add color highlighting for certain items in story text
 // > autochop cooldown indicator
 
 // > long term:

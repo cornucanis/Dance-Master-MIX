@@ -235,6 +235,7 @@ cursor:pointer
 }
 
 .exctrade {
+position:relative;
 display:inline-block;
 width:40%;
 background-color:#DB9;
@@ -714,4 +715,26 @@ color:#CCC
 height:100%;
 width:100%;
 background-color:#FEE;
+}
+
+.tooltiptext {
+    display:none;
+    width: 120%;
+    text-align: center;
+    background-color:#971;
+    border: 2px solid #DB5;
+    color:#FD7;
+    text-shadow:0px 0px 2px black;
+    position: absolute;
+    top:110%;
+    z-index: 1;
+    left:10%
+}
+
+.exctrade:hover .tooltiptext {
+    display:block;
+}
+
+.tooltiptext:hover {
+  display:none;
 }
