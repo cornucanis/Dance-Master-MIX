@@ -20,6 +20,7 @@ var player = {
 	
 	ovenMax: 100,
 	ovenTime: 60000,
+	autoChopDelay: 3000,
 	
 	flags: {
 		forestLocale: "meadow",
@@ -584,7 +585,7 @@ function excCheck() {
 			$("#exchange").append(
 				"<div id='" + res + "exchange' class='excdiv'><span id='" + res + "excname' class='excname'>" + player.resources[res].name + "</span><br>" +
 				"<div id='buy" + res + "' class='excbuy exctrade tooltipparent' onClick='exchangeF(\"buy\",\"" + res + "\")'>Buy:<br><span class='" + res + "buy'>" + 
-				exchange[res].buy * multiSelect.exchange + "</span> Salt<span id='" + res + "buytooltip' class='tooltiptext'>Buy <span class='buymulti" + res + "'>" + multiSelect.exchange + "</span> " + player.resources[res].name + " for <span class='" + res + "buy'>" + exchange[res].buy * multiSelect.exchange + "</span> Salt.</span></div>" + 
+				exchange[res].buy * multiSelect.exchange + "</span> Salt<span id='" + res + "buytooltip' class='tooltiptext' onclick='event.stopPropagation()'>Buy <span class='buymulti" + res + "'>" + multiSelect.exchange + "</span> " + player.resources[res].name + " for <span class='" + res + "buy'>" + exchange[res].buy * multiSelect.exchange + "</span> Salt.</span></div>" + 
 				"<div id='sell" + res + "' class='excsell exctrade tooltipparent' onClick='exchangeF(\"sell\",\"" + res + "\")'>Sell:<br><span class='" + res + "sell'>" +
 				exchange[res].sell * multiSelect.exchange + "</span> Salt<span id='" + res + "selltooltip' class='tooltiptext'>Sell <span class='sellmulti" + res + "'>" + multiSelect.exchange + "</span> " + player.resources[res].name + " for <span class='" + res + "sell'>" + exchange[res].sell * multiSelect.exchange + "</span> Salt.</span></div></div>"
 			)
@@ -635,7 +636,7 @@ function ovenCheck() {
 		$("#ovendiv").hide();
 	};
 	
-	$("#ovenamt").attr("max", Math.min(player.ovenMax, player.resources.sugar.amount / 10));
+	$("#ovenamt").attr("max", Math.min(player.ovenMax, Math.floor(player.resources.sugar.amount / 10)));
 	if (player.options.autofire.status == true && !$("#ovenbuttonoff").hasClass("firing")) {fireOven()};
 }
 
