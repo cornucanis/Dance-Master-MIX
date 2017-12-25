@@ -100,7 +100,7 @@ var storyText = {
 		},
 	},
 	s9: {
-		text: "<p>According to the instruction manual for this oven it can produce up to 100 cubes in a batch. Furthermore, each batch takes 60 seconds to cook. Thankfully the sugar cube exchange only costs 10 cubes for entry so I should be able to find out if this was all worth it very soon.</p>",
+		text: "<p>According to the instruction manual for this oven each sugar cube requires 10 sugar to produce, and the oven can produce up to 100 cubes in a batch. Furthermore, each batch takes 60 seconds to cook. Thankfully the sugar cube exchange only costs 10 cubes for entry so I should be able to find out if this was all worth it very soon.</p>",
 		price: {
 			type:"item",
 			value:"basicoven"

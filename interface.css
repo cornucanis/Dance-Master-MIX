@@ -692,6 +692,7 @@ position:relative;
 display:inline-block;
 width:auto;
 height:auto;
+padding:3px;
 margin-top:0px;
 font-size:10px;
 }
@@ -717,6 +718,10 @@ width:100%;
 background-color:#FEE;
 }
 
+.tooltipparent {
+ position:relative;
+}
+
 .tooltiptext {
     visibility:hidden;
     width: 120%;
@@ -729,6 +734,35 @@ background-color:#FEE;
     top:110%;
     z-index: 1;
     left:10%
+}
+
+#autochoptooltip {
+width:200%;
+left:-50%;
+top:120%;
+  font-size:12px;
+  border:2px solid #513;
+  color:#FAC;
+  text-shadow:0px 0px 0px white;
+  background-color:#735;
+}
+
+#begtooltip {
+ width:80%;
+  background-color:#457;
+  border:2px solid #236;
+  color:#ABF;
+  text-shadow:0px 0px 2px black;
+}
+
+#ovenbuttontooltip{
+ top:-30%;
+  left:105%;
+  width:180%;
+  border: 2px solid #512;
+  background-color: #745;
+  color:#EAA;
+  text-shadow:0px 0px 0px #FAA;
 }
 
 .tooltipparent:hover .tooltiptext {

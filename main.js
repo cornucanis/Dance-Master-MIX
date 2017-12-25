@@ -551,6 +551,29 @@ function axeCheck() {
 	});		
 }
 
+function tooltipCheck() {
+	$("#autochoptooltip").html("Current autochop delay:<br>" + player.autoChopDelay + " ms.");
+	if (player.flags.beggar == true) {
+		var begAmt = 5;
+		if (player.flags.story.s3 == true) {
+			begAmt = 10;
+		};
+		$("#begtooltip").html("Gain 1-" + begAmt + " salt.<br>Takes 2 seconds.")
+	};
+	if (player.flags.story.s9 == true) {
+		var tmpOven = parseInt($("#ovenamt").val());
+		if (tmpOven == "undefined" || isNaN(tmpOven)) {
+			tmpOven = 0;
+		};
+		$("#ovenbuttontooltip").html("Cooking:<br>" + tmpOven + " cubes.<br><br>Costs:<br>" + tmpOven * 10 + " sugar.<br><br>Delay:<br>" + player.ovenTime / 1000 + " seconds.");
+	}
+}
+
+	var begAmt = 5;
+	if (player.flags.story.s3 == true) {
+		begAmt = 10;
+	};
+
 function optionCheck() {
 	Object.keys(player.options).forEach(function(opt) {
 		if (player.options[opt].status && $("#o_" + opt).hasClass("optionoff")) {
@@ -710,6 +733,7 @@ var tick = function() {
 	mineCheck();
 	ovenCheck();
 	storyCheck();
+	tooltipCheck();
 	Object.keys(player.mines).forEach(function(sel) {
 		player.resources.sugar.amount += player.mines[sel].yield * player.mines[sel].amount / 10
 	});

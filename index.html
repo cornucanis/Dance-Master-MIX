@@ -8,7 +8,7 @@
 		<div id="container">
 <!-- 			<div id="debug" onClick="eatShit();">OPEN DEBUG CONSOLE</div> -->
 			<div id="resources"> 
-			<span id="version">version 0.1.3</span>
+			<span id="version">version 0.1.2</span>
 			</div>
 			<div id="pane1" class="pane">
 				<div class="panebuttons" id="pane1buttons">
@@ -29,6 +29,7 @@
 						<div id="excamt25" class="inactexcamt excamt" onClick="excMultiToggle(25)">x25</div>
 						<div id="excamt100" class="inactexcamt excamt" onClick="excMultiToggle(100)">x100</div>
 						<div id="excamtmax" class="inactexcamt excamt" onClick="excMultiToggle('max')">MAX</div>
+						<div id="excamt100" class="inactexcamt excamt" onClick="excMultiToggle('custom')">Custom</div>
 					</div>
 				</div>
 			</div>
@@ -53,7 +54,7 @@
 					<div id="chopbutton" class="chops" onClick="chopTree()">Chop Tree!</div>
 					<div id="choplessbutton" class="chops">Chop Tree!</div>
 					<div id="treetimer"><div id="treebar"></div></div><br>
-					<div id="o_autochop" class="options" onClick="optionToggle('autochop')">Autochop</div>
+					<div id="o_autochop" class="options tooltipparent" onClick="optionToggle('autochop')">Autochop<span class="tooltiptext" id="autochoptooltip" onclick="event.stopPropagation()"></span></div>
 					<div id="spacer"></div><div id="treetime"></div><div></div>
 					<div id="forestdisplay">Selected Forest:<br><span id="fname">Meadow</span></div>
 					<div id="f_meadow" class="forestbutton" onClick="fSwap('meadow')">Meadow</div>
@@ -61,7 +62,7 @@
 				</div>
 					<div id="mines">
 						<div id="ovendiv">
-							<div id="ovenbuttonon" class="ovenbutton" onClick="fireOven();"><br>Fire it up</div>
+							<div id="ovenbuttonon" class="ovenbutton tooltipparent" onClick="fireOven();"><br>Fire it up<span class="tooltiptext" id="ovenbuttontooltip" onclick="event.stopPropagation()">Tooltip test #2</span></div>
 							<div id="ovenbuttonoff" class="ovenbutton"><br>Please wait...</div>
 							<input type="number" id="ovenamt" name="ovenamt" value=1 min="1"/>
 							<div id="ovenmax" onClick="ovenMaxButton();">MAX</div>
@@ -89,14 +90,9 @@
 					</div>
 				</div>
 				<div id="story">
-					<div id="begbutton" onClick="beg()" class="beg"> Beg for salt! </div>
+					<div id="begbutton" onClick="beg()" class="beg tooltipparent"> Beg for salt! <span class="tooltiptext" id="begtooltip"></span></div>
 					<div id="beglessbutton" class="beg">Please wait . . . </div>
 					<div id="storybox">
-						<!-- <div id="storys1" class="story"> This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story.
-						</div><hr>
-						<div id="storys2" class="story"> This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. 
-						</div><hr>
-						<div id="storys3" class="story"> This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. This is an example text for a story. </div> -->
 					</div>
 				</div>
 				<div id="options">
