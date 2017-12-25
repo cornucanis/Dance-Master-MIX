@@ -718,7 +718,7 @@ background-color:#FEE;
 }
 
 .tooltiptext {
-    display:none;
+    visibility:hidden;
     width: 120%;
     text-align: center;
     background-color:#971;
@@ -731,10 +731,10 @@ background-color:#FEE;
     left:10%
 }
 
-.exctrade:hover .tooltiptext {
-    display:block;
+.tooltipparent:hover .tooltiptext {
+   visibility:visible;
 }
 
-.tooltiptext:hover {
-  display:none;
+.tooltipparent > .tooltiptext:hover {
+  visibility:hidden;
 }
