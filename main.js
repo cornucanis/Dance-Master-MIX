@@ -75,6 +75,7 @@ var player = {
 
 var multiSelect = {
 	exchange: 1,
+	exchangeCustom: false,
 	mine: 1,
 	oven: 1
 }
@@ -279,9 +280,27 @@ function excUnlockHtml(res) {
 }
 
 function excMultiToggle(amt) {
-	if (multiSelect.exchange != amt) {
-		$("#excamt" + multiSelect.exchange).removeClass("actexcamt");
-		$("#excamt" + multiSelect.exchange).addClass("inactexcamt");
+	if (amt == 'custom') {
+		if (multiSelect.exchangeCustom == false) {
+			$("#excamt" + multiSelect.exchange).removeClass("actexcamt");
+			$("#excamt" + multiSelect.exchange).addClass("inactexcamt");
+		};
+		if (isNaN(parseInt($("#excinput").val()))) {
+			tmpMulti = 0;
+		} else { tmpMulti = parseInt($("#excinput").val()) };
+		multiSelect.exchange = tmpMulti;
+		$("#excamtcustom").removeClass("inactexcamt");
+		$("#excamtcustom").addClass("actexcamt");
+		multiSelect.exchangeCustom = true;
+	} else if (amt != 'custom' && multiSelect.exchange != amt) {
+		if (multiSelect.exchangeCustom == true) {
+			multiSelect.exchangeCustom = false;
+			$("#excamtcustom").removeClass("actexcamt");
+			$("#excamtcustom").addClass("inactexcamt");
+		} else {
+			$("#excamt" + multiSelect.exchange).removeClass("actexcamt");
+			$("#excamt" + multiSelect.exchange).addClass("inactexcamt");
+		};
 		multiSelect.exchange = amt
 		$("#excamt" + amt).removeClass("inactexcamt");
 		$("#excamt" + amt).addClass("actexcamt");
@@ -603,7 +622,14 @@ function excCheck() {
 			if ($("#" + res + "unlock").hasClass("excnounlock") && player.resources[exchange[res].unlock.type].amount >= exchange[res].unlock.amount) {
 				$("#" + res + "unlock").removeClass("excnounlock");
 			};
-		};		
+		};
+		if (multiSelect.exchangeCustom == true) {
+			var tmpMulti = parseInt($("#excinput").val());
+			if (isNaN(tmpMulti)) {
+				tmpMulti = 0;
+			};
+			multiSelect.exchange = tmpMulti;
+		}
 		if (player.flags[res].unlocked && !$("#" + res + "exchange").html()) {
 			$("#exchange").append(
 				"<div id='" + res + "exchange' class='excdiv'><span id='" + res + "excname' class='excname'>" + player.resources[res].name + "</span><br>" +
@@ -658,7 +684,6 @@ function ovenCheck() {
 	if (player.flags.story.s9 == false) {
 		$("#ovendiv").hide();
 	};
-	
 	$("#ovenamt").attr("max", Math.min(player.ovenMax, Math.floor(player.resources.sugar.amount / 10)));
 	if (player.options.autofire.status == true && !$("#ovenbuttonoff").hasClass("firing")) {fireOven()};
 }
