@@ -123,9 +123,9 @@ var storeInv = {
 	axes: {
 		none: {name:"none", power:0},
 		nohandle: {name:"a handle-less hatchet", power:1, cost:50, visible:false},
-		rusty: {name:"a rusty hatchet", power:3, cost:1000, visible:false},
-		dull: {name:"a dull hatchet", power:5, cost:2000, visible:false},
-		plain: {name:"an ordinary hatchet", power:10, cost:4500, visible:false}
+		rusty: {name:"a rusty hatchet", power:3, cost:700, visible:false},
+		dull: {name:"a dull hatchet", power:5, cost:1500, visible:false},
+		plain: {name:"an ordinary hatchet", power:10, cost:3500, visible:false}
 	},
 	oven: {
 		basicoven: {name:"Basic Oven", description: "A quaint little oven", cost:10000, unlocked:false, visible:false}
@@ -571,7 +571,7 @@ function axeCheck() {
 }
 
 function tooltipCheck() {
-	$("#autochoptooltip").html("Current autochop delay:<br>" + player.autoChopDelay + " ms.");
+	$("#autochoptooltip").html("Current delay:<br>" + player.autoChopDelay + " ms.");
 	if (player.flags.beggar == true) {
 		var begAmt = 5;
 		if (player.flags.story.s3 == true) {
@@ -587,11 +587,6 @@ function tooltipCheck() {
 		$("#ovenbuttontooltip").html("Cooking:<br>" + tmpOven + " cubes.<br><br>Costs:<br>" + tmpOven * 10 + " sugar.<br><br>Delay:<br>" + player.ovenTime / 1000 + " seconds.");
 	}
 }
-
-	var begAmt = 5;
-	if (player.flags.story.s3 == true) {
-		begAmt = 10;
-	};
 
 function optionCheck() {
 	Object.keys(player.options).forEach(function(opt) {

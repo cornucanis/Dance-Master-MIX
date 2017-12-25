@@ -37,7 +37,7 @@ var trees = {
 }
 
 var currentTree = {
-		name:"no tree",
+		name:"nothing",
 		health:0,
 		yield:0
 }
@@ -82,11 +82,11 @@ function chopTree() {
 		if (forests[selFor].a && rnd <= forests[selFor].a.cap) {
 			$.extend(currentTree, trees[forests[selFor].a.name])
 		} else if (forests[selFor].b && rnd <= forests[selFor].b.cap) {
-			$.extend(currentTree, trees[forests[selFor].a.name])
+			$.extend(currentTree, trees[forests[selFor].b.name])
 		} else if (forests[selFor].c && rnd <= forests[selFor].c.cap) {
-			$.extend(currentTree, trees[forests[selFor].a.name])
+			$.extend(currentTree, trees[forests[selFor].c.name])
 		} else if (forests[selFor].d && rnd <= forests[selFor].d.cap) {
-			$.extend(currentTree, trees[forests[selFor].a.name])
+			$.extend(currentTree, trees[forests[selFor].d.name])
 		}
 		tmpMod = (variance(10,0.8,1.2) / 10);
 		currentTree.health = Math.round(tmpMod * currentTree.health);
@@ -125,7 +125,7 @@ function chopTree() {
 			window.clearInterval(tmpTreeTimer);
 			treeHtml();
 			if (player.options.autochop.status == true) {
-				acTimer = window.setTimeout(function() {chopTree();}, 3000);
+				acTimer = window.setTimeout(function() {chopTree();}, player.autoChopDelay);
 			};
 		})
 	}
