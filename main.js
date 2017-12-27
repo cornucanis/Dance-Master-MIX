@@ -492,8 +492,12 @@ function save() {
 function load() {
 	if (window.localStorage.getItem("player")) {
 		clearTimers();
-		player.flags.unlStory = JSON.parse(window.localStorage.getItem("player")).flags.unlStory;
-		player.flags.unlCraft = JSON.parse(window.localStorage.getItem("player")).flags.unlCraft;
+		if (JSON.parse(window.localStorage.getItem("player")).flags.unlStory) {
+			player.flags.unlStory = JSON.parse(window.localStorage.getItem("player")).flags.unlStory;
+		};
+		if (JSON.parse(window.localStorage.getItem("player")).flags.unlCraft) {
+			player.flags.unlCraft = JSON.parse(window.localStorage.getItem("player")).flags.unlCraft;
+		};
 		$.extend(true, player, JSON.parse(window.localStorage.getItem("player")))
 		if (player.flags.unlStory.indexOf("s9") == -1) {
 			player.sTimers.ovenSave.time = 0;
