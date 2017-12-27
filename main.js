@@ -1,20 +1,23 @@
 var player = {
-
+	testvar: 2,
 	resources: 	{
 		salt: {name: "Salt", amount: 0},
 		cinnamon: {name: "Cinnamon", amount: 0},
 		sugar: {name: "Sugar", amount: 0},
-		sugarcubes: {name: "Sugar Cubes", amount: 0}
+		sugarcubes: {name: "Sugar Cubes", amount: 0},
+		syrup: {name: "Syrup", amount: 0},
 	},
 
 	stats: {
 		axePower: 0,
 		axeMod: 1,
+		syrupConsumption: 2
 	},
 	
 	inventory: {
 		axe: "none",
 		oven: "none",
+		crafting: "none",
 		items: []
 	},
 	
@@ -23,6 +26,7 @@ var player = {
 	autoChopDelay: 3000,
 	
 	flags: {
+		testvar: 2,
 		forestLocale: "meadow",
 		beggar:true,
 		store:false,
@@ -34,13 +38,18 @@ var player = {
 		cinnamon: {visible:true, unlocked:false},
 		sugar: {visible:false, unlocked:false},
 		sugarcubes: {visible:false, unlocked:false},
+		syrup: {visible:false, unlocked:false},
 		purchased: {
+			testvar: 2,
 			nohandle: false,
 			rusty: false,
 			dull: false,
 			plain: false,
-			basicoven:false
+			basicoven:false,
+			basiccrafting:false
 		},
+		unlStory: [],
+		unlCraft: [],
 		story: {
 			s1: false,
 			s2: false,
@@ -129,7 +138,10 @@ var storeInv = {
 	},
 	oven: {
 		basicoven: {name:"Basic Oven", description: "A quaint little oven", cost:10000, unlocked:false, visible:false}
-	}
+	},
+	crafting: {
+		basiccrafting: {name:"Simple Crafting Station", description: "You can make your own axes with this!", cost:50000, unlocked:false, visible:false}
+	},
 }
 
 
@@ -151,16 +163,29 @@ function paneToggle(on) {
 
 		case "forest":
 			$("#mines").hide();
+			$("#craft").hide();
 			$("#trees").show();
 			$("#minepb").removeClass("activepane");
+			$("#craftpb").removeClass("activepane");
 			$("#forestpb").addClass("activepane");			
 			break;
 
 		case "mine":
 			$("#trees").hide();
+			$("#craft").hide();
 			$("#mines").show();
 			$("#forestpb").removeClass("activepane");
+			$("#craftpb").removeClass("activepane");
 			$("#minepb").addClass("activepane");			
+			break;
+			
+		case "craft":
+			$("#trees").hide();
+			$("#mines").hide();
+			$("#craft").show();
+			$("#minepb").removeClass("activepane");
+			$("#forestpb").removeClass("activepane");
+			$("#craftpb").addClass("activepane");
 			break;
 
 		case "store":
@@ -184,7 +209,7 @@ function paneToggle(on) {
 
 function beg() {
 	var begAmt = 5;
-	if (player.flags.story.s3 == true) {
+	if (player.flags.unlStory.indexOf("s3") != -1) {
 		begAmt = 10;
 	};
 	$("#begbutton").hide();
@@ -211,27 +236,65 @@ function drawResource(res) {
 		)
 }
 
-function buyAxe(axe) {
-	if (player.resources.salt.amount >= storeInv.axes[axe].cost) {
-		player.resources.salt.amount -= storeInv.axes[axe].cost;
-		if (storeInv.axes[axe].power >= player.stats.axePower) {
-			player.stats.axePower = storeInv.axes[axe].power;
-			player.inventory.axe = axe
-		};
-		player.flags.purchased[axe] = true;
-		$("#a_" + axe).remove();
-		axeHtml();
-	}
+function buyItem(type,id) {
+	switch (type) {
+		case "axe":
+			if (player.resources.salt.amount >= storeInv.axes[id].cost) {
+				player.resources.salt.amount -= storeInv.axes[id].cost;
+				if (storeInv.axes[id].power >= player.stats.axePower) {
+					player.stats.axePower = storeInv.axes[id].power;
+					player.inventory.axe = id
+				};
+				player.flags.purchased[id] = true;
+				$("#a_" + id).remove();
+				axeHtml();
+			};
+			break;
+		
+		case "oven":
+			if (player.resources.salt.amount >= storeInv.oven[id].cost) {
+				player.resources.salt.amount -= storeInv.oven[id].cost;
+				player.flags.purchased[id] = true;
+				player.inventory.oven = id;
+				$("#ot_" + id).remove();
+			};
+			break;
+		
+		case "crafting":
+			if (player.resources.salt.amount >= storeInv.crafting[id].cost) {
+				player.resources.salt.amount -= storeInv.crafting[id].cost;
+				player.flags.purchased[id] = true;
+				player.inventory.crafting = id;
+				$("#cr_" + id).remove();
+			};
+			break;
+			
+		default:
+			break;
+	};
 }
 
-function buyOven(id) {
-	if (player.resources.salt.amount >= storeInv.oven[id].cost) {
-		player.resources.salt.amount -= storeInv.oven[id].cost;
-		player.flags.purchased[id] = true;
-		player.inventory.oven = id;
-		$("#ot_" + id).remove();
-	}
-}
+// function buyAxe(axe) {
+	// if (player.resources.salt.amount >= storeInv.axes[axe].cost) {
+		// player.resources.salt.amount -= storeInv.axes[axe].cost;
+		// if (storeInv.axes[axe].power >= player.stats.axePower) {
+			// player.stats.axePower = storeInv.axes[axe].power;
+			// player.inventory.axe = axe
+		// };
+		// player.flags.purchased[axe] = true;
+		// $("#a_" + axe).remove();
+		// axeHtml();
+	// }
+// }
+
+// function buyOven(id) {
+	// if (player.resources.salt.amount >= storeInv.oven[id].cost) {
+		// player.resources.salt.amount -= storeInv.oven[id].cost;
+		// player.flags.purchased[id] = true;
+		// player.inventory.oven = id;
+		// $("#ot_" + id).remove();
+	// }
+// }
 
 function exchangeF(type, res) {
 	switch (type) {
@@ -404,43 +467,54 @@ function variance(input, min, max) {
 	return rand
 }
 
-function treeHtml() {
-	$("#treename").html(currentTree.name);
-	$("#treehealth").html(currentTree.health);
-	$("#treeyield").html(currentTree.yield)
-}
-
-function axeHtml() {
-	$("#axename").html(storeInv.axes[player.inventory.axe].name);
-	$("#axepower").html(player.stats.axePower);
-}
-
 function save() {
 	var saveData = JSON.stringify(player);
 	window.localStorage.setItem("player", saveData);
 	status("Game Saved!")
 }
 
+		// Object.keys(player).forEach(function(j) {
+			// if (tmpPlayer[j] == "undefined") {
+				// tmpPlayer[j] = $.extend({}, player[j])
+			// }
+		// });
+		// Object.keys(player.flags).forEach(function(k) {
+			// if (tmpPlayer.flags[k] == "undefined") {
+				// $.extend(tmpPlayer.flags[k], player.flags[k])
+			// }
+		// });
+		// Object.keys(player.flags.purchased).forEach(function(j) {
+			// if (tmpPlayer.flags.purchased[j] == "undefined") {
+				// $.extend(tmpPlayer.flags.purchased[j], player.flags.purchased[j])
+			// }
+		// });
+
 function load() {
 	if (window.localStorage.getItem("player")) {
 		clearTimers();
-		tmpPlayer = JSON.parse(window.localStorage.getItem("player"));
-		Object.keys(tmpPlayer).forEach(function(j) {
-			if (j) {
-				player[j] = tmpPlayer[j];
-			}
-		});
-		if (player.flags.story.s9 == false) {
+		player.flags.unlStory = JSON.parse(window.localStorage.getItem("player")).flags.unlStory;
+		player.flags.unlCraft = JSON.parse(window.localStorage.getItem("player")).flags.unlCraft;
+		$.extend(true, player, JSON.parse(window.localStorage.getItem("player")))
+		if (player.flags.unlStory.indexOf("s9") == -1) {
 			player.sTimers.ovenSave.time = 0;
 			player.sTimers.ovenSave.amount = 0;
 		};
+		fSwap();
+		Object.keys(storyText).forEach(function(q) {
+			if (player.flags.unlStory.indexOf(q) != -1) {
+				storyText[q].load();
+			};
+		});
+		Object.keys(craftables).forEach(function(qx) {
+			if (player.flags.unlCraft.indexOf(qx) != -1) {
+				craftables[qx].onLoad();
+			};
+		});
+		storyNew(true);
 		status("Game Loaded!")
 	} else {
 		status("No save data!")
 	};
-	Object.keys(player.flags.story).forEach(function(q) {
-		if (player.flags.story[q] == true) {storyUnlock(q, true);}
-	});
 	axeHtml();
 	if (player.sTimers.ovenSave.time > 0) {
 		fireOven(player.sTimers.ovenSave.amount, player.sTimers.ovenSave.time);
@@ -535,11 +609,11 @@ function resCheck() {
 	})
 }
 
-function axeCheck() {
+function storeCheck() {
 	Object.keys(storeInv.axes).forEach(function (axe) {
 		if (player.flags.purchased[axe] == false  && !$("#a_" + axe).html() && (3 * player.resources.salt.amount) >= storeInv.axes[axe].cost) {
 			$("#store").append(
-				"<div id=\"a_" + axe + "\" class=\"storeitem\" onclick=\"buyAxe(\'" + axe + "\')\">" + storeInv.axes[axe].name + "<br>Cost:" + storeInv.axes[axe].cost + "<br>Power:" + storeInv.axes[axe].power + "</div>"
+				"<div id='a_" + axe + "' class='storeitem' onclick='buyItem(\"axe\", \"" + axe + "\")'>" + storeInv.axes[axe].name + "<br>Cost:" + numberformat.formatShort(storeInv.axes[axe].cost) + "<br>Power:" + storeInv.axes[axe].power + "</div>"
 			)
 		};
 		if ($("a_" + axe).html() && (3 * player.resources.salt.amount) < storeInv.axes[axe].cost) {
@@ -555,10 +629,10 @@ function axeCheck() {
 	Object.keys(storeInv.oven).forEach(function (item) {
 		if (storeInv.oven[item].visible == true && !$("#ot_" + item).html() && (3 * player.resources.salt.amount) >= storeInv.oven[item].cost && player.flags.purchased[item] == false) {
 			$("#store").append(
-				"<div id=\"ot_" + item + "\" class=\"storeitem\" onclick=\"buyOven(\'" + item + "\')\">" + storeInv.oven[item].name + "<br>Cost:" + storeInv.oven[item].cost + "<br>" + storeInv.oven[item].description + "</div>"
+				"<div id=\"ot_" + item + "\" class=\"storeitem\" onclick=\"buyItem('oven', '" + item + "')\">" + storeInv.oven[item].name + "<br>Cost:" + numberformat.formatShort(storeInv.oven[item].cost) + "<hr>" + storeInv.oven[item].description + "</div>"
 			);
 		};
-		if ($("ot_" + item).html() && (3 * player.resources.salt.amount) < storeInv.oven[item].cost) {
+		if ($("#ot_" + item).html() && (3 * player.resources.salt.amount) < storeInv.oven[item].cost) {
 			$("#ot_" + item).remove();
 		};
 		if ($("#ot_" + item).html() && player.resources.salt.amount < storeInv.oven[item].cost) {
@@ -567,6 +641,22 @@ function axeCheck() {
 		if ($("#ot_" + item).hasClass("storenobuy") && player.resources.salt.amount >= storeInv.oven[item].cost) {
 			$("#ot_" + item).removeClass("storenobuy");
 		}
+	});	
+	Object.keys(storeInv.crafting).forEach(function (item) {
+		if (storeInv.crafting[item].visible == true && !$("#cr_" + item).html() && (3 * player.resources.salt.amount) >= storeInv.crafting[item].cost && player.flags.purchased[item] == false) {
+			$("#store").append(
+				"<div id='cr_" + item + "' class='storeitem' onclick='buyItem(\"crafting\", \"" + item + "\")'>" + storeInv.crafting[item].name + "<br>Cost:" + numberformat.formatShort(storeInv.crafting[item].cost) + "<hr>" + storeInv.crafting[item].description + "</div>"
+			);
+		};
+		if ($("#cr_" + item).html() && (3 * player.resources.salt.amount) < storeInv.crafting[item].cost) {
+			$("#cr_" + item).remove();
+		};
+		if ($("#cr_" + item).html() && player.resources.salt.amount < storeInv.crafting[item].cost) {
+			$("#cr_" + item).addClass("storenobuy");
+		};
+		if ($("#cr_" + item).hasClass("storenobuy") && player.resources.salt.amount >= storeInv.crafting[item].cost) {
+			$("#cr_" + item).removeClass("storenobuy");
+		}
 	});		
 }
 
@@ -574,18 +664,33 @@ function tooltipCheck() {
 	$("#autochoptooltip").html("Current delay:<br>" + player.autoChopDelay + " ms.");
 	if (player.flags.beggar == true) {
 		var begAmt = 5;
-		if (player.flags.story.s3 == true) {
+		if (player.flags.unlStory.indexOf("s3") != -1) {
 			begAmt = 10;
 		};
 		$("#begtooltip").html("Gain 1-" + begAmt + " salt.<br>Takes 2 seconds.")
 	};
-	if (player.flags.story.s9 == true) {
+	if (player.flags.unlStory.indexOf("s9") != -1) {
 		var tmpOven = parseInt($("#ovenamt").val());
 		if (tmpOven == "undefined" || isNaN(tmpOven)) {
 			tmpOven = 0;
 		};
 		$("#ovenbuttontooltip").html("Cooking:<br>" + tmpOven + " cubes.<br><br>Costs:<br>" + tmpOven * 10 + " sugar.<br><br>Delay:<br>" + player.ovenTime / 1000 + " seconds.");
-	}
+	};
+	if (player.flags.purchased.basiccrafting == true) {
+		Object.keys(craftables).forEach(function(id) {
+			if ($("#" + id).html()) {
+				var costHtml = "";
+				Object.keys(craftables[id].cost).forEach(function(iq) {
+					if (player.resources[iq].amount < craftables[id].cost[iq]) {
+						costHtml += "<span class='highcost'>" + craftables[id].cost[iq] + " " + player.resources[iq].name + "</span><br>"
+					} else {
+						costHtml += craftables[id].cost[iq] + " " + player.resources[iq].name + "<br>"
+					}
+				});
+				$("#" + id + "tt").html(craftables[id].description + "<hr><span class='craftcost'>Costs:<hr></span>" + costHtml)
+			}
+		});
+	};
 }
 
 function optionCheck() {
@@ -673,12 +778,6 @@ function excCheck() {
 }
 
 function ovenCheck() {
-	if (player.flags.story.s9 == true) {
-		$("#ovendiv").show();
-	};
-	if (player.flags.story.s9 == false) {
-		$("#ovendiv").hide();
-	};
 	$("#ovenamt").attr("max", Math.min(player.ovenMax, Math.floor(player.resources.sugar.amount / 10)));
 	if (player.options.autofire.status == true && !$("#ovenbuttonoff").hasClass("firing")) {fireOven()};
 }
@@ -693,7 +792,7 @@ function clearTimers() {
 function hack(inp) {
 	switch (inp) {
 		case "salt":
-			player.resources.salt.amount+=10000;
+			player.resources.salt.amount+=100000;
 			break;
 		
 		case "display":
@@ -746,17 +845,21 @@ function flash(id, start, end, ms) {
 }
 
 var tick = function() {
-	axeCheck();
+	storeCheck();
 	resCheck();
 	optionCheck();
 	excCheck();
 	mineCheck();
 	ovenCheck();
-	storyCheck();
+	craftCheck();
+	// storyCheck();
+	storyNew(false);
 	tooltipCheck();
 	Object.keys(player.mines).forEach(function(sel) {
 		player.resources.sugar.amount += player.mines[sel].yield * player.mines[sel].amount / 10
 	});
+	if (player.resources.syrup.amount > 0) {player.resources.syrup.amount -= (player.stats.syrupConsumption / 10)};
+	if (player.resources.syrup.amount < 0) {player.resources.syrup.amount = 0};
 }
 
 var asave = function() {
@@ -767,14 +870,8 @@ var asave = function() {
 }
 
 function init() {
-	$("#beglessbutton").css("display","inline-block");
-	$("#beglessbutton").hide();
-	$("#ovendiv").css("display","inline-block");
-	$("#ovendiv").hide();
-	$("#choplessbutton").css("display","inline-block");
-	$("#choplessbutton").hide();
-	$("#creditbox").css("display","inline-block");
-	$("#creditbox").hide();
+	$(".hiders").css("display","inline-block");
+	$(".hiders").hide();
 }
 
 window.onload=function() {
@@ -788,7 +885,6 @@ window.onload=function() {
 // > general cleanup:
 // > offline production
 // > add color highlighting for certain items in story text
-// > autochop cooldown indicator
 
 // > long term:
 // > mobile styling?

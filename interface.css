@@ -3,6 +3,20 @@ background-color: #411;
 font-family:"Courier New", Courier, monospace;
 }
 
+.tooltiptext {
+    visibility:hidden;
+    width: 120%;
+    text-align: center;
+    background-color:#971;
+    border: 2px solid #DB5;
+    color:#FD7;
+    text-shadow:0px 0px 2px black;
+    position: absolute;
+    top:110%;
+    z-index: 1;
+    left:10%
+}
+
 #container {
 height:800px;
 background-color: #143;
@@ -29,6 +43,10 @@ display:none;
 #minepb {
 display:none;
 } 
+
+#craftpb {
+display:none;
+}
 
 .resname {
 font-weight:bold;
@@ -59,7 +77,7 @@ background-color:#444;
 }
 
 
-.panebutton{
+.panebutton {
 text-align:center;
 display:inline-block;
 width:calc(50% - 10px);
@@ -69,6 +87,10 @@ border:5px solid black;
 background-color: #222;
 color: #AAA;
 cursor:pointer;
+}
+
+.pbsmall {
+ width:calc(33% - 10px);
 }
 
 
@@ -125,31 +147,33 @@ float:left;
 height:800px;
 }
 
-#store {
+.tab {
 text-align:center;
+}
+
+#store {
 }
 
 #exchange {
 display: none;
-text-align:center;
 }
 
 #trees {
-text-align: center;
 }
 
 #mines {
 display: none;
-text-align:center;
+}
+
+#craft {
+display: none;
 }
 
 #options {
 display: none;
-text-align: center;
 }
 
 #story {
-text-align: center;
 position:relative;
 height:770px;
 width:100%;
@@ -159,6 +183,7 @@ overflow-x:hidden;
 
 .storeitem {
 color:#CDF;
+text-shadow:0px 0px 4px white;
 position:relative;
 width:90%;
 border:2px solid black;
@@ -167,6 +192,15 @@ margin-top:15px;
 text-align:center;
 background-color:#632;
 display:inline-block;
+}
+
+.storeitem hr {
+  width:90%;
+  height:0px;
+  border-radius:4px;
+  background-color:black;
+  height:1px;
+  border: 1px solid #C96;
 }
 
 .storenobuy {
@@ -277,16 +311,6 @@ color:#D11;
 background-color:white
 }
 
-.forestbutton {
-position:relative;
-display:inline-block;
-background-color:#5A8;
-color:#FFF;
-width:40%;
-border: 2px solid #5A5;
-margin-top:20px;
-}
-
 #treestats {
 margin-top:20px;
 display:inline-block;
@@ -363,6 +387,16 @@ padding-bottom:0px;
 color:black;
 }
 
+.forestbutton {
+position:relative;
+display:inline-block;
+background-color:#5A8;
+color:#FFF;
+width:40%;
+border: 2px solid #5A5;
+margin-top:20px;
+}
+
 .forestbutton:hover {
 background-color:#8EA;
 cursor:pointer;
@@ -370,13 +404,13 @@ color:#222
 }
 
 #ovendiv {
-display:none;
+display:inline-block;
 width:95%;
 height:100px;
 margin-top:10px;
 margin-bottom:10px;
 background-color: #C1C1C1;
-border: 2px double green;
+border: 2px double #474;
 }
 
 .ovenbutton {
@@ -447,6 +481,83 @@ background-color:#4A7;
 #oventime {
 margin-top:7px;
 color:#744;
+}
+
+#craftingbox {
+  margin-top:15px;
+  display:inline-block;
+  height:300px;
+  width:95%;
+  border:2px solid #BBE;
+  border-radius:15px;
+  background-color:#112;
+  font-size:25px;
+  padding-top:15px;
+  color:#88A;
+  text-shadow: 0px 0px 2px #C88;
+ 
+}
+
+.craftitem {
+  display:inline-block;
+  border:2px solid #898;
+  border-radius:15px;
+  margin-top:10px;
+  width:85%;
+  background-color:#667;
+  font-size:20px;
+  padding-top:8px;
+  padding-bottom:8px;
+  color:#AAD;
+  text-shadow:0px 0px 1px #CFC;
+}
+
+.craftitem:hover {
+ background-color:#AAC;
+  color:#446;
+  cursor:pointer
+}
+
+.craftexpensive {
+ background-color:#200;
+  color:#444;
+  border-color:#522;
+  text-shadow:none;
+}
+
+.craftexpensive:hover {
+  background-color:#200;
+  color:#444;
+  border-color:#522;
+  text-shadow:none;
+  cursor:default;
+}
+
+.craftcost {
+}
+
+.crafttooltip hr {
+ width:95%;
+  margin-bottom:15px;
+  border-color:#300;
+  height:1px;
+  color:#000;
+}
+
+.craftcost hr {
+ width:25%;
+}
+
+.crafttooltip {
+  padding-top:10px;
+  padding-bottom:10px;
+ font-size:15px;
+ border:2px solid #001;
+ background-color:#224;
+ color:#66E;
+  text-shadow:0px 0px 0px #2F2;
+  top:120%;
+  left:-10%;
 }
 
 .minearea {
@@ -722,19 +833,6 @@ background-color:#FEE;
  position:relative;
 }
 
-.tooltiptext {
-    visibility:hidden;
-    width: 120%;
-    text-align: center;
-    background-color:#971;
-    border: 2px solid #DB5;
-    color:#FD7;
-    text-shadow:0px 0px 2px black;
-    position: absolute;
-    top:110%;
-    z-index: 1;
-    left:10%
-}
 
 #autochoptooltip {
 width:200%;
@@ -771,4 +869,9 @@ top:120%;
 
 .tooltipparent > .tooltiptext:hover {
   visibility:hidden;
+}
+
+.highcost {
+ color:#D66;
+  text-shadow:0px 0px 5px #F77;
 }

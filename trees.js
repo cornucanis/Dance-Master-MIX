@@ -2,44 +2,72 @@ var trees = {
 	none: {
 		name:"nothing",
 		health:0,
-		yield:0
+		yield:0,
+		syield:0
 	},
 	
 	se: {
 		name:"a seedling",
 		health:3,
-		yield:3
+		yield:3,
+		syield:0
 	},
 	
 	sa: {
 		name:"a sapling",
 		health:7,
-		yield:6
+		yield:6,
+		syield:0
 	},
 	
 	tt: {
 		name:"a tiny tree",
 		health:13,
-		yield:10
+		yield:10,
+		syield: 0
 	},
 	
 	st: {
 		name:"a small tree",
 		health:32,
-		yield:22
+		yield:22,
+		syield: 1
 	},
 	
 	nt: {
 		name:"a normal tree",
 		health:60,
-		yield:38
+		yield:38,
+		syield: 2
+	},
+	
+	m1: {
+		name:"a maple seedling",
+		health:100,
+		yield:3,
+		syield:10,
+	},
+	
+	m2: {
+		name:"a maple sapling",
+		health:230,
+		yield:7,
+		syield: 15 
+	},
+	
+	m3: {
+		name:"a tiny maple",
+		health:500,
+		yield:12,
+		syield: 22
 	}
 }
 
 var currentTree = {
 		name:"nothing",
 		health:0,
-		yield:0
+		yield:0,
+		syield:0
 }
 
 var forests = {
@@ -49,7 +77,6 @@ var forests = {
 		a:{name:"se", cap:7},
 		b:{name:"sa", cap:10}
 	},
-	
 	edge: {
 		name:"Forest Edge", 
 		l:10, 
@@ -58,12 +85,22 @@ var forests = {
 		c:{name:"st", cap:9},
 		d:{name:"nt", cap:10}
 	},
+	smallmaple: {
+		name:"Maple Grove", 
+		l: 16, 
+		a:{name:"nt", cap:2},
+		b:{name:"m1", cap:9},
+		c:{name:"m2", cap:13},
+		d:{name:"m3", cap:15}
+	},
 }
 
 
 function fSwap(frst) {
+	if (frst) {
 	player.flags.forestLocale = frst;
-	$("#fname").html(forests[frst].name)
+	};
+	$("#fname").html(forests[player.flags.forestLocale].name)
 }
 
 function updateResources() {
@@ -91,6 +128,7 @@ function chopTree() {
 		tmpMod = (variance(10,0.8,1.2) / 10);
 		currentTree.health = Math.round(tmpMod * currentTree.health);
 		currentTree.yield  = Math.round(tmpMod * currentTree.yield);
+		currentTree.syield = Math.round(tmpMod * currentTree.syield);
 		treeHtml();
 		var treeTime = Math.max(1000, (currentTree.health / (player.stats.axePower * player.stats.axeMod)) * 1000);
 		var treeTimer = new Date().getTime();
@@ -115,6 +153,7 @@ function chopTree() {
 			function() {
 			$("#treebar").css("width","0%");
 			player.resources.cinnamon.amount += currentTree.yield;
+			if (player.stats.axePower >= 50) {player.resources.syrup.amount += currentTree.syield};
 			flash("r_cinnamon", "#411", "#966", 400);
 			flash("cinnamon_n", "#321", "#966", 400);
 			$.extend(currentTree, trees.none)
@@ -129,6 +168,13 @@ function chopTree() {
 			};
 		})
 	}
+}
+
+function treeHtml() {
+	$("#treename").html(currentTree.name);
+	$("#treehealth").html(currentTree.health);
+	$("#treeyield").html(currentTree.yield);
+	$("#treesyield").html(currentTree.syield);
 }
 
 function stopChop() {

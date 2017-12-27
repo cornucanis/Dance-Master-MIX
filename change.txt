@@ -1,3 +1,7 @@
+0.1.6 - Restyled some things. Revised load and story functions. Revised tree handling. New story content! More to come soon. 
+
+0.1.5 - Custom input values for exchange.
+
 0.1.4 - More tooltips! Autochop timer, beg button, and oven button all have tooltips now. Also some minor bug fixes.
 
 0.1.3 - Added exchange tooltips. More tooltips to come in prep for upgrade implementation!

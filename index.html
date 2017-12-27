@@ -8,7 +8,7 @@
 		<div id="container">
 <!-- 			<div id="debug" onClick="eatShit();">OPEN DEBUG CONSOLE</div> -->
 			<div id="resources"> 
-			<span id="version">version 0.1.5</span>
+			<span id="version">version 0.1.6</span>
 			</div>
 			<div id="pane1" class="pane">
 				<div class="panebuttons" id="pane1buttons">
@@ -19,9 +19,9 @@
 						Exchange
 					</div>
 				</div>
-				<div id="store">
+				<div id="store" class="tab">
 				</div>
-				<div id="exchange">
+				<div id="exchange" class="tab">
 					<div id="excamounts" class="amounttoggles">
 					Exchange amount:<br>
 						<div id="excamt1" class="actexcamt excamt" onClick="excMultiToggle(1)">x1</div>
@@ -36,14 +36,17 @@
 			</div>
 			<div id="pane2" class="pane">
 				<div class="panebuttons" id="pane2buttons">
-					<div class="panebutton activepane" id="forestpb" onClick="paneToggle('forest');">
-						Forest
+					<div class="panebutton activepane pbsmall" id="forestpb" onClick="paneToggle('forest');">
+						Trees
 					</div>
-					<div class="panebutton" id="minepb" onClick="paneToggle('mine');">
+					<div class="panebutton pbsmall" id="minepb" onClick="paneToggle('mine');">
 						Mines
 					</div>
+					<div class="panebutton pbsmall" id="craftpb" onClick="paneToggle('craft');">
+						Craft
+					</div>
 				</div>
-				<div id="trees">
+				<div id="trees" class="tab">
 					<div id="currentaxe">Your axe: 
 						<span id="axename">none</span><br>
 						Power: <span id="axepower">0</span>
@@ -51,26 +54,19 @@
 					<div id="treestats">Currently chopping: 
 						<span id="treename">No tree</span><br>
 						Health: <span id="treehealth">0</span><br>
-						Yield: <span id="treeyield">0</span></div>
+						Yield: <span id="treeyield">0</span><br>
+						<span id="treedatasyrup" class="hiders">Syrup: <span id="treesyield">0</span></span></div>
 					<div id="chopbutton" class="chops" onClick="chopTree()">Chop Tree!</div>
-					<div id="choplessbutton" class="chops">Chop Tree!</div>
+					<div id="choplessbutton" class="chops hiders">Chop Tree!</div>
 					<div id="treetimer"><div id="treebar"></div></div><br>
 					<div id="o_autochop" class="options tooltipparent" onClick="optionToggle('autochop')">Autochop<span class="tooltiptext" id="autochoptooltip" onclick="event.stopPropagation()"></span></div>
 					<div id="spacer"></div><div id="treetime"></div><div></div>
 					<div id="forestdisplay">Selected Forest:<br><span id="fname">Meadow</span></div>
 					<div id="f_meadow" class="forestbutton" onClick="fSwap('meadow')">Meadow</div>
 					<div id="f_edge" class="forestbutton" onClick="fSwap('edge')">Forest Edge</div>
+					<div id="f_smallmaple" class="forestbutton hiders" onClick="fSwap('smallmaple')">Maple Grove</div>
 				</div>
-					<div id="mines">
-						<div id="ovendiv">
-							<div id="ovenbuttonon" class="ovenbutton tooltipparent" onClick="fireOven();"><br>Fire it up<span class="tooltiptext" id="ovenbuttontooltip" onclick="event.stopPropagation()">Tooltip test #2</span></div>
-							<div id="ovenbuttonoff" class="ovenbutton"><br>Please wait...</div>
-							<input type="number" id="ovenamt" name="ovenamt" value=1 min="1"/>
-							<div id="ovenmax" onClick="ovenMaxButton();">MAX</div>
-							<div id="oventimer"><div id="ovenbar"></div></div>
-							<div id="oventime"></div>
-						</div
-						>
+				<div id="mines" class="tab">
 						<div id="mineamounts" class="amounttoggles">
 						Purchase amount:<br>
 							<div id="mineamt1" class="actmineamt mineamt" onClick="mineMultiToggle(1)">x1</div>
@@ -79,6 +75,20 @@
 							<div id="mineamt100" class="inactmineamt mineamt" onClick="mineMultiToggle(100)">x100</div>
 <!-- 							<div id="mineamtmax" class="inactmineamt mineamt" onClick="mineMultiToggle('max')">MAX</div> -->
 						</div>
+				</div>
+				<div id="craft" class="tab">
+					<div id="ovendiv">
+						<div id="ovenbuttonon" class="ovenbutton tooltipparent" onClick="fireOven();"><br>Fire it up<span class="tooltiptext" id="ovenbuttontooltip" onclick="event.stopPropagation()"></span></div>
+						<div id="ovenbuttonoff" class="ovenbutton"><br>Please wait...</div>
+						<input type="number" id="ovenamt" name="ovenamt" value=1 min="1"/>
+						<div id="ovenmax" onClick="ovenMaxButton();">MAX</div>
+						<div id="oventimer"><div id="ovenbar"></div></div>
+						<div id="oventime"></div>
+					</div>
+					<div id="craftingbox" class="hiders">
+						Crafting Station<br>
+						<!-- <div id="sturdyaxe" class="craftitem tooltipparent" onClick="craftItem('sturdyaxe')">Sturdy Axe<span id="sharpaxett" class="tooltiptext crafttooltip">A nice, sturdy axe!<hr><span class="craftcost">Costs:<hr></span>1000 Cinnamon<br>150 Sugar Cubes</span></div> -->
+					</div>
 				</div>
 			</div>
 			<div id="pane3" class="pane">
@@ -90,13 +100,13 @@
 						Options
 					</div>
 				</div>
-				<div id="story">
+				<div id="story" class="tab">
 					<div id="begbutton" onClick="beg()" class="beg tooltipparent"> Beg for salt! <span class="tooltiptext" id="begtooltip"></span></div>
-					<div id="beglessbutton" class="beg">Please wait . . . </div>
+					<div id="beglessbutton" class="beg hiders">Please wait . . . </div>
 					<div id="storybox">
 					</div>
 				</div>
-				<div id="options">
+				<div id="options" class="tab">
 					<div id="save" class="options" onClick="save();">Save Game</div>
 					<div id="load" class="options" onClick="load();">Load Game</div>
 					<div id="o_autosave" class="options" onClick="optionToggle('autosave')">Autosave</div><br>
@@ -106,7 +116,7 @@
 					<div id="links">
 						<a href="change.txt" class="link"  target="_blank">Changelog</a><span id="credits" class="link" onClick='$("#creditbox").show();'>Credits</span><a href="https://discord.gg/SuRn49d" class="link"  target="_blank">Discord</a>
 					</div>
-					<div id="creditbox"><span id="creditclose" onClick='$("#creditbox").hide();'>[x]</span><br>cornucanis: That's me! For making the game!<br><br>fuzzything44: For helping me work through some dev issues.<br><br>kawaritai: For creating swarm-numberformat.js and making it public. Great number formatting library!</div>
+					<div id="creditbox" class="hiders"><span id="creditclose" onClick='$("#creditbox").hide();'>[x]</span><br>cornucanis: That's me! For making the game!<br><br>fuzzything44: For helping me work through some dev issues.<br><br>kawaritai: For creating swarm-numberformat.js and making it public. Great number formatting library!</div>
 				</div>
 			</div>
 		</div>
@@ -114,6 +124,7 @@
 		<script src="main.js"></script>
 		<script src="story.js"></script>
 		<script src="trees.js"></script>
+		<script src="craft.js"></script>
 		<script src="jquery.min.js"></script>
 		<script src="jquery.color-2.1.2.js"></script>
 		<script src="swarm-numberformat.min.js"></script>
