@@ -40,6 +40,10 @@ text-shadow:1px 1px 1px #E99;
 display:none;
 }
 
+#upgradepb {
+display:none;
+}
+
 #minepb {
 display:none;
 } 
