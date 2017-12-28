@@ -26,7 +26,7 @@ var axeTable = {
 
 function axeHtml() {
 	$("#axename").html(axeTable[player.inventory.axe].name);
-	$("#axepower").html(player.stats.axePower);
+	$("#axepower").html(player.stats.axePower * player.stats.axeMod);
 }
 
 function craftItem(id) {
@@ -52,6 +52,18 @@ function craftCheck() {
 		if ($("#" + cq).html && ( craftables[cq].cond() == false || player.flags.unlCraft.indexOf(cq) != -1 )) {
 			$("#" + cq).remove();
 		};
-	})
+		var costcheck = false;
+		Object.keys(craftables[cq].cost).forEach(function(qc) {
+			if (player.resources[qc].amount < craftables[cq].cost[qc]) {
+				costcheck = true;
+			}
+		});
+		if (costcheck == true) {
+		$("#" + cq).addClass("craftexpensive");
+		} else {
+		$("#" + cq).removeClass("craftexpensive");
+		};		
+	});
+	axeHtml();
 }
 

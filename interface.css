@@ -158,6 +158,10 @@ text-align:center;
 display: none;
 }
 
+#upgrades {
+display:none;
+}
+
 #trees {
 }
 
@@ -294,12 +298,70 @@ background-color:#777;
 color:#BBB
 }
 
-
-
 .excname {
 font-weight:bold;
 color:#AEC;
 text-shadow:0px 0px 2px #000;
+}
+
+.upgrade {
+  background-color:#B13;
+  padding-top:10px;
+  padding-bottom:10px;
+  width:80%;
+  display:inline-block;
+  margin-top:20px;
+  border:2px solid #5Dc;;
+  border-radius:8px;
+  font-size:18px;
+  color:#2F8;
+  text-shadow:0px 0px 4px #0AF;
+}
+
+.upgrade:hover {
+  background-color:#E35;
+  cursor:pointer;
+  color:#2F7;
+  text-shadow:0px 0px 1px #0BE;
+}
+
+.upgradeexpensive {
+  background-color:#333;
+  color:#877;
+  border-color:#777;
+  text-shadow:0px 0px 5px #411;
+}
+
+.upgradeexpensive:hover {
+   background-color:#333;
+  color:#877;
+  border-color:#777;
+  text-shadow:0px 0px 5px #411;
+  cursor:default;
+}
+
+.upgradett hr {
+ width:95%;
+  margin-bottom:15px;
+  border-color:#300;
+  height:1px;
+  color:#000;
+}
+
+.upgradett {
+  padding-top:10px;
+  padding-bottom:10px;
+ font-size:15px;
+ border:2px solid #001;
+ background-color:#501;
+ color:#CA2;
+  text-shadow:0px 0px 5px #992;
+  top:120%;
+  left:-10%;
+}
+
+.upgradecost hr {
+ width:25%;
 }
 
 #currentaxe {
@@ -874,4 +936,9 @@ top:120%;
 .highcost {
  color:#D66;
   text-shadow:0px 0px 5px #F77;
+}
+
+.lowcost {
+  color:#1F1;
+  text-shadow:0px 0px 3px #EEE;
 }

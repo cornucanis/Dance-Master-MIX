@@ -50,6 +50,7 @@ var player = {
 		},
 		unlStory: [],
 		unlCraft: [],
+		upgrades: [],
 		story: {
 			s1: false,
 			s2: false,
@@ -190,16 +191,29 @@ function paneToggle(on) {
 
 		case "store":
 			$("#exchange").hide();
+			$("#upgrades").hide();
 			$("#store").show();
 			$("#exchangepb").removeClass("activepane");
+			$("#upgradepb").removeClass("activepane");
 			$("#storepb").addClass("activepane");			
 			break;
 
 		case "exchange":
 			$("#store").hide();
+			$("#upgrades").hide();
 			$("#exchange").show();
 			$("#storepb").removeClass("activepane");
+			$("#upgradepb").removeClass("activepane");
 			$("#exchangepb").addClass("activepane");			
+			break;
+			
+		case "upgrade":
+			$("#store").hide();
+			$("#exchange").hide();
+			$("#upgrades").show();
+			$("#storepb").removeClass("activepane");
+			$("#exchangepb").removeClass("activepane");
+			$("#upgradepb").addClass("activepane");
 			break;
 			
 		default:
@@ -498,6 +512,9 @@ function load() {
 		if (JSON.parse(window.localStorage.getItem("player")).flags.unlCraft) {
 			player.flags.unlCraft = JSON.parse(window.localStorage.getItem("player")).flags.unlCraft;
 		};
+		if (JSON.parse(window.localStorage.getItem("player")).flags.upgrades) {
+			player.flags.upgrades = JSON.parse(window.localStorage.getItem("player")).flags.upgrades;
+		};
 		$.extend(true, player, JSON.parse(window.localStorage.getItem("player")))
 		if (player.flags.unlStory.indexOf("s9") == -1) {
 			player.sTimers.ovenSave.time = 0;
@@ -512,6 +529,14 @@ function load() {
 		Object.keys(craftables).forEach(function(qx) {
 			if (player.flags.unlCraft.indexOf(qx) != -1) {
 				craftables[qx].onLoad();
+			};
+		});
+		Object.keys(upgrades).forEach(function(qu) {
+			if (player.flags.upgrades.indexOf(qu) != -1) {
+				upgrades[qu].onLoad();
+			};
+			if ($("#u_" + qu).html() && upgrades[qu].cond() == false) {
+				$("#u_" + qu).remove();
 			};
 		});
 		storyNew(true);
@@ -688,10 +713,25 @@ function tooltipCheck() {
 					if (player.resources[iq].amount < craftables[id].cost[iq]) {
 						costHtml += "<span class='highcost'>" + craftables[id].cost[iq] + " " + player.resources[iq].name + "</span><br>"
 					} else {
-						costHtml += craftables[id].cost[iq] + " " + player.resources[iq].name + "<br>"
+						costHtml += "<span class='lowcost'>" + craftables[id].cost[iq] + " " + player.resources[iq].name + "</span><br>"
 					}
 				});
 				$("#" + id + "tt").html(craftables[id].description + "<hr><span class='craftcost'>Costs:<hr></span>" + costHtml)
+			}
+		});
+	};
+	if (player.stats.axePower >= 50) {
+		Object.keys(upgrades).forEach(function(uq) {
+			if ($("#u_" + uq).html()) {
+				var costHtml = "";
+				Object.keys(upgrades[uq].cost).forEach(function(ux) {
+					if (player.resources[ux].amount < upgrades[uq].cost[ux]) {
+						costHtml += "<span class='highcost'>" + upgrades[uq].cost[ux] + " " + player.resources[ux].name + "</span><br>"
+					} else {
+						costHtml += "<span class='lowcost'>" + upgrades[uq].cost[ux] + " " + player.resources[ux].name + "</span><br>";
+					};
+				});
+				$("#" + uq + "tt").html(upgrades[uq].description + "<hr><span class='upgradecost'>Costs:<hr></span>" + costHtml);
 			}
 		});
 	};
@@ -856,6 +896,7 @@ var tick = function() {
 	mineCheck();
 	ovenCheck();
 	craftCheck();
+	upgradeCheck();
 	// storyCheck();
 	storyNew(false);
 	tooltipCheck();

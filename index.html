@@ -12,11 +12,14 @@
 			</div>
 			<div id="pane1" class="pane">
 				<div class="panebuttons" id="pane1buttons">
-					<div class="panebutton activepane" id="storepb" onClick="paneToggle('store');">
+					<div class="panebutton activepane pbsmall" id="storepb" onClick="paneToggle('store');">
 						Store
 					</div>
-					<div class="panebutton" id="exchangepb" onClick="paneToggle('exchange');">
+					<div class="panebutton pbsmall" id="exchangepb" onClick="paneToggle('exchange');">
 						Exchange
+					</div>
+					<div class="panebutton pbsmall" id="upgradepb" onClick="paneToggle('upgrade');">
+						Upgrades
 					</div>
 				</div>
 				<div id="store" class="tab">
@@ -32,6 +35,8 @@
 						<div id="excamtcustom" class="inactexcamt excamt" onClick="excMultiToggle('custom')">Custom</div><br>
 						<input type="number" id="excinput" name="excinput" value=1 min="1"/>
 					</div>
+				</div>
+				<div id="upgrades" class="tab">
 				</div>
 			</div>
 			<div id="pane2" class="pane">
@@ -87,7 +92,6 @@
 					</div>
 					<div id="craftingbox" class="hiders">
 						Crafting Station<br>
-						<!-- <div id="sturdyaxe" class="craftitem tooltipparent" onClick="craftItem('sturdyaxe')">Sturdy Axe<span id="sharpaxett" class="tooltiptext crafttooltip">A nice, sturdy axe!<hr><span class="craftcost">Costs:<hr></span>1000 Cinnamon<br>150 Sugar Cubes</span></div> -->
 					</div>
 				</div>
 			</div>
@@ -125,6 +129,7 @@
 		<script src="story.js"></script>
 		<script src="trees.js"></script>
 		<script src="craft.js"></script>
+		<script src="upgrades.js"></script>
 		<script src="jquery.min.js"></script>
 		<script src="jquery.color-2.1.2.js"></script>
 		<script src="swarm-numberformat.min.js"></script>
