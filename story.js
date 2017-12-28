@@ -152,10 +152,12 @@ var storyText = {
 		text: "<p>Excellent! Now I can finally harvest the sticky stuff fresh from the source myself. No more going through middlemen. This is just what I've always wanted... What could possibly go wrong?</p>.......<br><br>...",
 		cond: function() { return player.flags.unlCraft.indexOf("sturdyaxe") != -1 && player.flags.unlStory.indexOf("s11") != -1 },
 		get: function() {
-			$("#treedatasyrup").show()
+			$("#treedatasyrup").show();
+			$("#upgradepb").show()
 		},	
 		load: function() {
-			$("#treedatasyrup").show()
+			$("#treedatasyrup").show();
+			$("#upgradepb").show()
 		},
 	},
 }
