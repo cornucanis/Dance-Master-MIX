@@ -598,7 +598,10 @@ function mineCheck() {
 	Object.keys(player.mines).forEach(function(sel) {
 		if ((!$("#" + sel).html() && player.resources.salt.amount * 1.3 >= player.mines[sel].price) || (!$("#" + sel).html() && player.mines[sel].amount >= 1)) {
 			$("#mines").append('<div id="' + sel + '" class="minearea" onClick="buyMine(\'' + sel + '\')"><span id="' + sel + 'amt" class="mineqty">' + player.mines[sel].amount + '</span> <span id="'+ sel +'name" class="minename">' + player.mines[sel].plural + '</span> Owned.<br><div class="minecost minesub">Cost: <span id="' + sel + 'cost">' + player.mines[sel].cost + '</span></div><div class="mineprod minesub"><span id="' + sel + 'prod">' + player.mines[sel].yield + '</span> Sugar /s</div>')
-		};			
+		};
+		if ($("#" + sel).html()) {
+			$("#" + sel + "prod").html(player.mines[sel].yield)
+		};
 		if ($("#" + sel).html()) {
 			if (!$("#" + sel + "name").hasClass("singular") && player.mines[sel].amount == 1) {
 				var tmpName = $("#" + sel + "name").html();
@@ -933,6 +936,9 @@ window.onload=function() {
 // > general cleanup:
 // > offline production
 // > add color highlighting for certain items in story text
+// > empty pane decoration
+// > syrup consumption tooltip
+// > autochop intuitiveness
 
 // > long term:
 // > mobile styling?

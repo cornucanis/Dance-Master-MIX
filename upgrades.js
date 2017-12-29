@@ -62,6 +62,16 @@ var upgrades = {
 		onBuy: function() {player.stats.syrupConsumption = 1},
 		onLoad: function() {}
 	},
+	zengardens: {
+		name:"Zen Gardens",
+		description:"Some Feng Shui can greatly improve the output of your Rock Gardens..",
+		cost: {
+			syrup:100
+		},
+		cond: function() {return player.flags.upgrades.indexOf("sugarrush") != -1 && player.mines.rockgarden.amount >= 5},
+		onBuy: function() {player.mines.rockgarden.yield *= 3},
+		onLoad: function() {}
+	},
 }
 
 function buyUpgrade(id) {
