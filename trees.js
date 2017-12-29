@@ -130,7 +130,7 @@ function chopTree() {
 		currentTree.yield  = Math.round(tmpMod * currentTree.yield);
 		currentTree.syield = Math.round(tmpMod * currentTree.syield);
 		treeHtml();
-		var treeTime = Math.max(1000, (currentTree.health / (player.stats.axePower * player.stats.axeMod)) * 1000);
+		var treeTime = Math.max(player.minimumChop, (currentTree.health / (player.stats.axePower * player.stats.axeMod)) * 1000);
 		var treeTimer = new Date().getTime();
 		var treeDone = treeTimer + treeTime;
 		tmpTreeTimer = window.setInterval(

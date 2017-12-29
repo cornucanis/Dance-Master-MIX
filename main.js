@@ -24,6 +24,8 @@ var player = {
 	ovenMax: 100,
 	ovenTime: 60000,
 	autoChopDelay: 3000,
+	minimumChop: 1000,
+	mineProd: 1,
 	
 	flags: {
 		testvar: 2,
@@ -68,7 +70,8 @@ var player = {
 	},
 	
 	mines: {
-		rockgarden: {name:"Rock Garden", price:5000, yield:1, multi:1.1, amount:0}
+		rockgarden: {name:"Rock Garden", plural: "Rock Gardens", price:5000, yield:1, multi:1.2, amount:0},
+		pebblebeach: {name:"Pebble Covered Beach", plural: "Pebble Covered Beaches", price:40000, yield:12, multi:1.1, amount:0}
 	},
 	
 	options: {
@@ -594,7 +597,7 @@ function credits(bool) {
 function mineCheck() {
 	Object.keys(player.mines).forEach(function(sel) {
 		if ((!$("#" + sel).html() && player.resources.salt.amount * 1.3 >= player.mines[sel].price) || (!$("#" + sel).html() && player.mines[sel].amount >= 1)) {
-			$("#mines").append('<div id="' + sel + '" class="minearea" onClick="buyMine(\'' + sel + '\')"><span id="' + sel + 'amt" class="mineqty">' + player.mines[sel].amount + '</span> <span id="'+ sel +'name" class="minename">' + player.mines[sel].name + 's</span> Owned.<br><div class="minecost minesub">Cost: <span id="' + sel + 'cost">' + player.mines[sel].cost + '</span></div><div class="mineprod minesub"><span id="' + sel + 'prod">' + player.mines[sel].yield + '</span> Sugar /s</div>')
+			$("#mines").append('<div id="' + sel + '" class="minearea" onClick="buyMine(\'' + sel + '\')"><span id="' + sel + 'amt" class="mineqty">' + player.mines[sel].amount + '</span> <span id="'+ sel +'name" class="minename">' + player.mines[sel].plural + '</span> Owned.<br><div class="minecost minesub">Cost: <span id="' + sel + 'cost">' + player.mines[sel].cost + '</span></div><div class="mineprod minesub"><span id="' + sel + 'prod">' + player.mines[sel].yield + '</span> Sugar /s</div>')
 		};			
 		if ($("#" + sel).html()) {
 			if (!$("#" + sel + "name").hasClass("singular") && player.mines[sel].amount == 1) {
@@ -901,7 +904,7 @@ var tick = function() {
 	storyNew(false);
 	tooltipCheck();
 	Object.keys(player.mines).forEach(function(sel) {
-		player.resources.sugar.amount += player.mines[sel].yield * player.mines[sel].amount / 10
+		player.resources.sugar.amount += player.mineProd * player.mines[sel].yield * player.mines[sel].amount / 10
 	});
 	if (player.resources.syrup.amount > 0) {player.resources.syrup.amount -= (player.stats.syrupConsumption / 10)};
 	if (player.resources.syrup.amount < 0) {player.resources.syrup.amount = 0};

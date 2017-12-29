@@ -8,7 +8,60 @@ var upgrades = {
 		cond: function() {return player.resources.syrup.amount >= 20},
 		onBuy: function() {player.stats.axeMod = 1.5; axeHtml()},
 		onLoad: function() {}		
-	}
+	},
+	sugarrush: {
+		name:"Sugar Rush",
+		description:"Drinking this syrup makes you want some sugar to go with it. Doubles mine production.",
+		cost: {
+			syrup:50
+		},
+		cond: function() {return player.resources.syrup.amount >= 20},
+		onBuy: function() {player.minimumChop = 500},
+		onLoad: function() {}
+	},
+	impstamina: {
+		name:"Improved Stamina",
+		description:"Improve your stamina which allows you to autochop more quickly!",
+		cost: {
+			syrup:100
+		
+		},
+		cond: function() {return player.resources.syrup.amount >= 45},
+		onBuy: function() {player.autoChopDelay = 1500},
+		onLoad: function() {}
+	},
+	hackandslash: {
+		name:"Hack and Slash",
+		description:"Decrease the minimum time required to chop weak trees!",
+		cost: {
+			syrup:100
+		},
+		cond: function() {return player.flags.upgrades.indexOf("powerfularm") != -1},
+		onBuy: function() {player.minimumChop = 500},
+		onLoad: function() {}
+	},
+
+	defacebeaches: {
+		name:"Deface Beaches",
+		description:"Get wasted on syrup sugar then go deface some beaches! Decreases the base cost of pebble beaches.",
+		cost: {
+			syrup:200,
+			sugar:10000
+		},
+		cond: function() {return player.flags.upgrades.indexOf("sugarrush") != -1 && player.mines.pebblebeach.amount >= 3},
+		onBuy: function() {player.mines.pebblebeach.price = 35000},
+		onLoad: function() {}
+	},
+	impulsecontrol: {
+		name:"Impulse Control",
+		description:"With a little bit of willpower you can consume less syrup.",
+		cost: {
+			syrup:200
+		},
+		cond: function() {return player.resources.syrup.amount >= 90},
+		onBuy: function() {player.stats.syrupConsumption = 1},
+		onLoad: function() {}
+	},
 }
 
 function buyUpgrade(id) {

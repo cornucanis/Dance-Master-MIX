@@ -1,3 +1,5 @@
+0.2.0 - Upgrades are now implemented! Follow the story to begin producing syrup and unlock upgrades. Only 6 upgrades implemented currently but more will be coming.
+
 0.1.6 - Restyled some things. Revised load and story functions. Revised tree handling. New story content! More to come soon. 
 
 0.1.5 - Custom input values for exchange.
