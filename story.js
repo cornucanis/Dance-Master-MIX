@@ -179,5 +179,8 @@ function storyNew(load) {
 	if (player.flags.unlStory.indexOf("s6") != -1 && player.flags.beggar == true) {
 		player.flags.beggar = false;
 	};
+	if (player.flags.unlStory.indexOf("s6") == -1 && player.flags.beggar == false) {
+		player.flags.beggar = true;
+	};
 	if (player.flags.beggar == false) {$(".beg").remove()};
 }
