@@ -87,7 +87,7 @@ var forests = {
 	},
 	smallmaple: {
 		name:"Maple Grove", 
-		l: 16, 
+		l: 15, 
 		a:{name:"nt", cap:2},
 		b:{name:"m1", cap:9},
 		c:{name:"m2", cap:13},
