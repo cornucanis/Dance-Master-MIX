@@ -147,10 +147,12 @@ function chopTree() {
 				}
 			}, 100
 		);
+		$("#treebar").show();
 		$("#treebar").animate(
 			{width:"100%"},
 			treeTime,
 			function() {
+			$("#treebar").hide();
 			$("#treebar").css("width","0%");
 			player.resources.cinnamon.amount += currentTree.yield;
 			if (player.stats.axePower >= 50) {player.resources.syrup.amount += currentTree.syield};
