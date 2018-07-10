@@ -110,6 +110,7 @@ function updateResources() {
 function chopTree() {
 	if (player.stats.axePower > 0 && !$("#choplessbutton").hasClass("chopping")) {
 		clearTimeout(acTimer);
+		$("#autochopbar").stop(false, true);
 		acTimer = 0;
 		$("#chopbutton").hide();
 		$("#choplessbutton").show();
@@ -149,13 +150,17 @@ function chopTree() {
 		);
 		$("#treebar").show();
 		$("#treebar").animate(
-			{width:"100%"},
+			{width:"98%"},
 			treeTime,
 			function() {
 			$("#treebar").hide();
 			$("#treebar").css("width","0%");
 			player.resources.cinnamon.amount += currentTree.yield;
-			if (player.stats.axePower >= 50) {player.resources.syrup.amount += currentTree.syield};
+			resIncomes.cinnamon.current += currentTree.yield;
+			if (player.stats.axePower >= 50) {
+				player.resources.syrup.amount += currentTree.syield
+				resIncomes.syrup.current += currentTree.syield;
+			};
 			flash("r_cinnamon", "#411", "#966", 400);
 			flash("cinnamon_n", "#321", "#966", 400);
 			$.extend(currentTree, trees.none)
@@ -167,6 +172,15 @@ function chopTree() {
 			treeHtml();
 			if (player.options.autochop.status == true) {
 				acTimer = window.setTimeout(function() {chopTree();}, player.autoChopDelay);
+				$("#autochopbar").show();
+				$("#autochopbar").animate(
+					{width:"95%"},
+					player.autoChopDelay,
+					function() {
+						$("#autochopbar").hide();
+						$("#autochopbar").css("width","0%");
+					}
+				);
 			};
 		})
 	}

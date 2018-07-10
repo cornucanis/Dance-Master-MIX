@@ -1,3 +1,5 @@
+0.2.2 - Tweaked a lot of minor bits of code to improve flow. Added visible autochop timer. Added resource income display. Restyled a few things.
+
 0.2.1 - Prevented text selection on page to stop unwanted text selection when clicking buttons. Slight UI fixes.
 
 0.2.0 - Upgrades are now implemented! Follow the story to begin producing syrup and unlock upgrades. Only 6 upgrades implemented currently but more will be coming.

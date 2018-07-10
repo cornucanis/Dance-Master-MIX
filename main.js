@@ -1,5 +1,4 @@
 var player = {
-	testvar: 2,
 	resources: 	{
 		salt: {name: "Salt", amount: 0},
 		cinnamon: {name: "Cinnamon", amount: 0},
@@ -131,6 +130,9 @@ var tmpTreeTimer = 0;
 var treeAni = 0;
 var begTimer = 0;
 
+var resIncomes = {};
+
+
 
 var storeInv = {
 	axes: {
@@ -148,8 +150,12 @@ var storeInv = {
 	},
 }
 
-
 function paneToggle(on) {
+	var tempPbId = on + "pb";
+	if (tempPbId == currentlyFlashingTab) {
+		clearInterval(flt);
+		$("#" + tempPbId).stop(false, true);
+	}
 	switch (on) {
 		case "options":
 			$("#story").hide();
@@ -240,7 +246,9 @@ function beg() {
 		2000,
 		function() {
 			$(this).css("width","90%");
-				player.resources.salt.amount += Math.ceil(Math.random() * begAmt);
+				begAmt = Math.ceil(Math.random() * begAmt)
+				player.resources.salt.amount += begAmt;
+				resIncomes.salt.current += begAmt;
 				$("#saltamt").html(player.resources.salt.amount);
 				flash("r_salt", "#411", "#966", 400);
 				flash("salt_n", "#321", "#966", 400);
@@ -249,7 +257,7 @@ function beg() {
 
 function drawResource(res) {
 	$("#resources").append(
-		"<span id='r_" + res + "' class='resource'><span class='resname' id='" + res + "_n'>" + player.resources[res].name + ":</span><br><span id='" + res + "amt' class='resamt'>0</span></span>"
+		"<span id='r_" + res + "' class='resource'><span class='resname' id='" + res + "_n'>" + player.resources[res].name + "</span><br><span id='" + res + "amt' class='resamt'>0</span><br><span id='" + res + "income' class='resincome'></span></span>"
 		)
 }
 
@@ -432,12 +440,15 @@ function fireOven(amt, time) {
 				}
 			}, 100
 		);
+		$("#ovenbar").show();
 		$("#ovenbar").animate(
-			{width:"100%"},
+			{width:"98%"},
 			oTime,
 			function() {
 			$("#ovenbar").css("width","0%");
+			$("#ovenbar").hide();
 			player.resources.sugarcubes.amount += tmpOven;
+			resIncomes.sugarcubes.current += tmpOven;
 			player.sTimers.ovenSave.time = 0;
 			player.sTimers.ovenSave.amount = 0;
 			flash("r_sugarcubes", "#411", "#966", 400);
@@ -453,13 +464,13 @@ function fireOven(amt, time) {
 
 
 function stopCook() {
-$("#ovenbar").stop();
-clearInterval(tmpOTimer);
-$("#ovenbar").css("width","0%");
-$("#ovenbuttonoff").removeClass("firing");
-$("#ovenbuttonoff").hide();
-$("#ovenbuttonon").show();
-$("#oventime").html("");
+	$("#ovenbar").stop();
+	clearInterval(tmpOTimer);
+	$("#ovenbar").css("width","0%");
+	$("#ovenbuttonoff").removeClass("firing");
+	$("#ovenbuttonoff").hide();
+	$("#ovenbuttonon").show();
+	$("#oventime").html("");
 }
 
 
@@ -509,14 +520,18 @@ function save() {
 function load() {
 	if (window.localStorage.getItem("player")) {
 		clearTimers();
-		if (JSON.parse(window.localStorage.getItem("player")).flags.unlStory) {
+		var tmpPlayer = JSON.parse(window.localStorage.getItem("player"))
+		if (tmpPlayer.flags.unlStory) {
 			player.flags.unlStory = JSON.parse(window.localStorage.getItem("player")).flags.unlStory;
 		};
-		if (JSON.parse(window.localStorage.getItem("player")).flags.unlCraft) {
+		if (tmpPlayer.flags.unlCraft) {
 			player.flags.unlCraft = JSON.parse(window.localStorage.getItem("player")).flags.unlCraft;
 		};
-		if (JSON.parse(window.localStorage.getItem("player")).flags.upgrades) {
+		if (tmpPlayer.flags.upgrades) {
 			player.flags.upgrades = JSON.parse(window.localStorage.getItem("player")).flags.upgrades;
+		};
+		if (tmpPlayer.inventory.items) {
+			player.inventory.items = JSON.parse(window.localStorage.getItem("player")).inventory.items;
 		};
 		$.extend(true, player, JSON.parse(window.localStorage.getItem("player")))
 		if (player.flags.unlStory.indexOf("s9") == -1) {
@@ -640,10 +655,44 @@ function resCheck() {
 		if (player.resources[res].amount > 0 && $("#r_" + res).html() == undefined) {
 			drawResource(res);
 		}
-		if ($("#r_" + res).html()) $("#" + res + "amt").html(numberformat.format(player.resources[res].amount));
+		if ($("#r_" + res).html()) {
+			$("#" + res + "amt").html(numberformat.format(player.resources[res].amount));
+			var ta = resIncomes[res].avg;
+			if (ta > 0) {
+				if (ta < 10) {
+					ta *= 100;
+					ta = numberformat.format(ta, {sigfigs: 3});
+					ta /= 100;
+				} else if (ta < 100) {
+					ta *= 10;
+					ta = numberformat.format(ta, {sigfigs: 3});
+					ta /= 10;
+				} else {
+					ta = numberformat.format(ta, {sigfigs: 3});
+				}
+				$("#" + res + "income").html("+" + ta);
+				$("#" + res + "income").removeClass("negativeincome");
+			} else if (resIncomes[res].avg < 0) {
+				if (ta > -10) {
+					ta *= 100;
+					ta = numberformat.format(ta, {sigfigs: 3});
+					ta /= 100;
+				} else if (ta > -100) {
+					ta *= 10;
+					ta = numberformat.format(ta, {sigfigs: 3});
+					ta /= 10;
+				} else {
+					ta = numberformat.format(ta, {sigfigs: 3});
+				}
+				$("#" + res + "income").html(ta);
+				$("#" + res + "income").addClass("negativeincome");
+			} else {
+				$("#" + res + "income").html("+/- 0");
+			}
+		}
 	})
 }
-
+ 
 function storeCheck() {
 	Object.keys(storeInv.axes).forEach(function (axe) {
 		if (player.flags.purchased[axe] == false  && !$("#a_" + axe).html() && (3 * player.resources.salt.amount) >= storeInv.axes[axe].cost) {
@@ -717,9 +766,9 @@ function tooltipCheck() {
 				var costHtml = "";
 				Object.keys(craftables[id].cost).forEach(function(iq) {
 					if (player.resources[iq].amount < craftables[id].cost[iq]) {
-						costHtml += "<span class='highcost'>" + craftables[id].cost[iq] + " " + player.resources[iq].name + "</span><br>"
+						costHtml += "<span class='highcost'>" + player.resources[iq].amount + "/" + craftables[id].cost[iq] + " " + player.resources[iq].name + "</span><br>"
 					} else {
-						costHtml += "<span class='lowcost'>" + craftables[id].cost[iq] + " " + player.resources[iq].name + "</span><br>"
+						costHtml += "<span class='lowcost'>" + craftables[id].cost[iq] + "/"+ craftables[id].cost[iq] + " " + player.resources[iq].name + "</span><br>"
 					}
 				});
 				$("#" + id + "tt").html(craftables[id].description + "<hr><span class='craftcost'>Costs:<hr></span>" + costHtml)
@@ -907,9 +956,14 @@ var tick = function() {
 	storyNew(false);
 	tooltipCheck();
 	Object.keys(player.mines).forEach(function(sel) {
-		player.resources.sugar.amount += player.mineProd * player.mines[sel].yield * player.mines[sel].amount / 10
+		tgain = player.mineProd * player.mines[sel].yield * player.mines[sel].amount / 10
+		player.resources.sugar.amount += tgain;
+		resIncomes.sugar.current += tgain;
 	});
-	if (player.resources.syrup.amount > 0) {player.resources.syrup.amount -= (player.stats.syrupConsumption / 10)};
+	if (player.resources.syrup.amount > 0) {
+		player.resources.syrup.amount -= (player.stats.syrupConsumption / 10);
+		resIncomes.syrup.current -= player.stats.syrupConsumption / 10;
+	};
 	if (player.resources.syrup.amount < 0) {player.resources.syrup.amount = 0};
 }
 
@@ -920,7 +974,21 @@ var asave = function() {
 	}
 }
 
+var incomeUpdate = function() {
+	Object.keys(player.resources).forEach(function(q) {
+		while (resIncomes[q].previous.length >= 10) {
+			resIncomes[q].previous.shift();
+		}
+		resIncomes[q].previous.push(resIncomes[q].current);
+		resIncomes[q].avg = resIncomes[q].previous.reduce(function(ttotal, tcurrent) {return ttotal + tcurrent}) / resIncomes[q].previous.length;
+		resIncomes[q].current = 0;
+	});
+}
+
 function init() {
+	Object.keys(player.resources).forEach(function(q) {
+			resIncomes[q] = {avg:0, current:0, previous:[]};
+	});
 	$(".hiders").css("display","inline-block");
 	$(".hiders").hide();
 }
@@ -929,16 +997,27 @@ window.onload=function() {
 	init();
 	load();
 	var tTimer = window.setInterval(tick, 100);
+	var iTimer = window.setInterval(incomeUpdate, 1000);
 	var aTimer = window.setInterval(asave, 60000);
 }
 
+// > content:
+
+// > oven upgrades
+// > better hatchets
+// > hiring employees with syrup to do various tasks
+
 
 // > general cleanup:
+
+// > syrup consumption tooltip
 // > offline production
 // > add color highlighting for certain items in story text
 // > empty pane decoration
-// > syrup consumption tooltip
-// > autochop intuitiveness
+// > list purchased upgrades
+// > mark tabs with new items
+
 
 // > long term:
+
 // > mobile styling?

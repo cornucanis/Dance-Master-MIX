@@ -1,3 +1,5 @@
+var currentlyFlashingTab;
+var flt;
 
 var storyText = {
 	s1: {
@@ -12,16 +14,7 @@ var storyText = {
 		text: "<p>Well, thanks to the generosity of the city's denizens I've managed to amass 30 salt. That's enough to buy a couple pints down at the pub! I start heading down the street to the pub, but on the way I pass through the market district and begin to reconsider my priorities..</p><p>Perhaps it's time to begin investing my salt in wiser ventures that don't leave me feeling miserable the next morning . . .</p>",
 		cond: function() { return player.resources.salt.amount >= 30 && player.flags.unlStory.indexOf("s1") != -1},
 		get: function() {
-			$("#pane1").show();
-			flash("pane1", "#DDF", "#FFF", 400);
-			var flt = setInterval (
-				function() {
-				flash("pane1", "#DDF", "#FFF", 400);
-				}, 800
-			);
-			setTimeout(function() {
-				clearInterval(flt);
-			}, 2400)
+			flashPane("pane1");
 		},
 		load: function() {
 			$("#pane1").show();
@@ -31,16 +24,7 @@ var storyText = {
 		text: "<p>A weapon! Perfect! Now I can start mugging people for pub money! Wait.. That's the old way of thinking. I'm better than that now. I'm sure there are better uses for this hatchet. After using my new weapon as an aid to \"consult\" with a few people I eventually determine that I can use it to chop down the cinnamon trees that grow on the outskirts of town.</p><p>That's great news! A big ol' stick will be a great aid for future consultations! For some reason just having this weapon already seems to make people more generous when I'm begging.</p>",
 		cond: function() { return player.flags.purchased.nohandle && player.flags.unlStory.indexOf("s2") != -1},
 		get: function() {
-			$("#pane2").show();
-			flash("pane2", "#DDF", "#FFF", 400);
-			var flt = setInterval (
-				function() {
-				flash("pane2", "#DDF", "#FFF", 400);
-				}, 800
-			);
-			setTimeout(function() {
-				clearInterval(flt);
-			}, 2400)
+			flashPane("pane2");
 		},	
 		load: function() {
 			$("#pane2").show();
@@ -50,16 +34,7 @@ var storyText = {
 		text: "<p>This is pretty fun! I don't know why I didn't start gathering sticks sooner! Nobody gives you any trouble when you pull out a big stick. Things are starting to look up for me, but I'm still not satisfied. Surely there must be a way for me to amass even more power.</p><p>After using my big stick to consult with a few more people I finally learn that I can sell these sticks for salt! My latest cowering friend points me towards the exchange and I give him a big whack with my stick as thanks.</p><p>I arrive at the exchange ready to do some work with my stick, but I'm dismayed to find that everyone here has their own sticks. A guy with a very big stick asks me what I'm doing here and I explain to him that I'm just looking around.</p><p>He tells me that nothing is free here and if I can't afford the entry fee I'll have to either leave or come back with a much bigger stick. I guess I'll have to pay for my entry like everyone else... It's enough to make a guy want to just head down to the pub.</p>",
 		cond: function() { return player.resources.cinnamon.amount >= 30 && player.flags.unlStory.indexOf("s3") != -1 },
 		get: function() {
-			$("#exchangepb").show();
-			flash("exchangepb", "#CEC", "#FFF", 400);
-			var flt = setInterval (
-				function() {
-				flash("exchangepb", "#CEC", "#FFF", 400);
-				}, 800
-			);
-			setTimeout(function() {
-				clearInterval(flt);
-			}, 2400)
+			flashTab("exchangepb");
 		},	
 		load: function() {
 			$("#exchangepb").show();
@@ -76,16 +51,7 @@ var storyText = {
 		text: "<p>I'm feeling pretty wealthy now. I don't think I really need to beg any more.</p><p>I've been spending a lot of time at the cinnamon exchange lately. There are a lot of people coming and going here, but I can't help noticing that the business here pales in comparison to the volume of business received by the sugar exchange next door.</p>I need to find out more about this \"sugar\" stuff.<p>I watch one of the patrons exit the exchange and follow him into an alley before brandishing my hatchet. He seems to be a friendly guy as he is quick to explain this substance.</p><p>Apparently \"sugar\" is a very spicy seasoning that it can be obtained by finding and breaking up sugar rocks. I give him a whack on the noggin with my hatchet to thank him for being so helpful.</p><p>I've seen a lot of people with rock gardens around town. I bet if I pay the guards some salt to look the other way I can gather my sugar from these gardens.</p>",
 		cond: function() { return player.flags.purchased.plain && player.flags.unlStory.indexOf("s5") != -1 },
 		get: function() {
-			$("#minepb").show();
-			flash("minepb", "#CEC", "#FFF", 400);
-			var flt = setInterval (
-				function() {
-				flash("minepb", "#CEC", "#FFF", 400);
-				}, 800
-			);
-			setTimeout(function() {
-				clearInterval(flt);
-			}, 2400)
+			flashTab("minepb");
 		},
 		load: function() {
 			$("#minepb").show();
@@ -108,16 +74,7 @@ var storyText = {
 		cond: function() { return player.flags.purchased.basicoven  && player.flags.unlStory.indexOf("s8") != -1},
 		get: function() {
 			excUnlockHtml("sugarcubes");
-			$("#craftpb").show();
-			flash("craftpb", "#CEC", "#FFF", 400);
-			var flt = setInterval (
-				function() {
-				flash("craftpb", "#CEC", "#FFF", 400);
-				}, 800
-			);
-			setTimeout(function() {
-				clearInterval(flt);
-			}, 2400)
+			flashTab("craftpb");
 		},	
 		load: function() {excUnlockHtml("sugarcubes"); $("#craftpb").show();},
 	},
@@ -153,7 +110,7 @@ var storyText = {
 		cond: function() { return player.flags.unlCraft.indexOf("sturdyaxe") != -1 && player.flags.unlStory.indexOf("s11") != -1 },
 		get: function() {
 			$("#treedatasyrup").show();
-			$("#upgradepb").show()
+			flashTab("upgradepb");
 		},	
 		load: function() {
 			$("#treedatasyrup").show();
@@ -183,4 +140,31 @@ function storyNew(load) {
 		player.flags.beggar = true;
 	};
 	if (player.flags.beggar == false) {$(".beg").remove()};
+}
+
+function flashPane(uPane) {
+	$("#" + uPane).show();
+			flash(uPane, "#DDF", "#FFF", 400);
+			var flt = setInterval (
+				function() {
+				flash(uPane, "#DDF", "#FFF", 400);
+				}, 800
+			);
+			setTimeout(function() {
+				clearInterval(flt);
+			}, 2400)
+}
+
+function flashTab(uTab) {
+	$("#" + uTab).show();
+	flash(uTab, "#555", "#CCC", 400);
+	flt = setInterval (
+		function() {
+		flash(uTab, "#555", "#CCC", 400);
+		}, 800
+	);
+	setTimeout(function() {
+		clearInterval(flt);
+	}, 2400);
+	currentlyFlashingTab = uTab;
 }
