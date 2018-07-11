@@ -61,7 +61,6 @@ var player = {
 			s6: false,
 			s7: false,
 			s8: false,
-			s8: false,
 			s9: false,
 			s10: false,
 			s11: false
@@ -83,14 +82,14 @@ var player = {
 		ovenSave: {time:0, amount:0},
 		woodSave: {time:0, amount:0}
 	}
-}
+};
 
 var multiSelect = {
 	exchange: 1,
 	exchangeCustom: false,
 	mine: 1,
 	oven: 1
-}
+};
 
 var exchange = {
 	cinnamon: {
@@ -122,7 +121,7 @@ var exchange = {
 			amount:10
 		}
 	}
-}
+};
 
 var acTimer = 0;
 var tmpOTimer = 0;
@@ -148,7 +147,7 @@ var storeInv = {
 	crafting: {
 		basiccrafting: {name:"Simple Crafting Station", description: "You can make your own axes with this!", cost:50000, unlocked:false, visible:false}
 	},
-}
+};
 
 function paneToggle(on) {
 	var tempPbId = on + "pb";
@@ -234,7 +233,7 @@ function beg() {
 	var begAmt = 5;
 	if (player.flags.unlStory.indexOf("s3") != -1) {
 		begAmt = 10;
-	};
+	}
 	$("#begbutton").hide();
 	$("#beglessbutton").show();
 	begTimer = setTimeout(function() {
@@ -246,19 +245,19 @@ function beg() {
 		2000,
 		function() {
 			$(this).css("width","90%");
-				begAmt = Math.ceil(Math.random() * begAmt)
+				begAmt = Math.ceil(Math.random() * begAmt);
 				player.resources.salt.amount += begAmt;
 				resIncomes.salt.current += begAmt;
 				$("#saltamt").html(player.resources.salt.amount);
 				flash("r_salt", "#411", "#966", 400);
 				flash("salt_n", "#321", "#966", 400);
-		})
+		});
 }
 
 function drawResource(res) {
 	$("#resources").append(
 		"<span id='r_" + res + "' class='resource'><span class='resname' id='" + res + "_n'>" + player.resources[res].name + "</span><br><span id='" + res + "amt' class='resamt'>0</span><br><span id='" + res + "income' class='resincome'></span></span>"
-		)
+		);
 }
 
 function buyItem(type,id) {
@@ -268,12 +267,12 @@ function buyItem(type,id) {
 				player.resources.salt.amount -= storeInv.axes[id].cost;
 				if (storeInv.axes[id].power >= player.stats.axePower) {
 					player.stats.axePower = storeInv.axes[id].power;
-					player.inventory.axe = id
-				};
+					player.inventory.axe = id;
+				}
 				player.flags.purchased[id] = true;
 				$("#a_" + id).remove();
 				axeHtml();
-			};
+			}
 			break;
 		
 		case "oven":
@@ -282,7 +281,7 @@ function buyItem(type,id) {
 				player.flags.purchased[id] = true;
 				player.inventory.oven = id;
 				$("#ot_" + id).remove();
-			};
+			}
 			break;
 		
 		case "crafting":
@@ -291,12 +290,12 @@ function buyItem(type,id) {
 				player.flags.purchased[id] = true;
 				player.inventory.crafting = id;
 				$("#cr_" + id).remove();
-			};
+			}
 			break;
 			
 		default:
 			break;
-	};
+	}
 }
 
 // function buyAxe(axe) {
@@ -361,35 +360,34 @@ function excUnlockHtml(res) {
 		if (!$("#" + res + "unlock").html()) {
 			$("#exchange").append(
 				"<div id='" + res + "unlock' class='excunlock excdiv' onClick='excUnlock(\"" + res + "\")'><span id='" + res +
-				"ubutton' class='excbutton'>Unlock " + player.resources[res].name + " Exchange</span><br> for <span id='" + res + "ucost' class='excucost'>"
-				+ exchange[res].unlock.amount + " " + player.resources[exchange[res].unlock.type].name + "</span></div>"
-			)
+				"ubutton' class='excbutton'>Unlock " + player.resources[res].name + " Exchange</span><br> for <span id='" + res + "ucost' class='excucost'>" + exchange[res].unlock.amount + " " + player.resources[exchange[res].unlock.type].name + "</span></div>"
+			);
 		}
 }
 
 function excMultiToggle(amt) {
 	if (amt == 'custom') {
-		if (multiSelect.exchangeCustom == false) {
+		if (multiSelect.exchangeCustom === false) {
 			$("#excamt" + multiSelect.exchange).removeClass("actexcamt");
 			$("#excamt" + multiSelect.exchange).addClass("inactexcamt");
-		};
+		}
 		if (isNaN(parseInt($("#excinput").val()))) {
 			tmpMulti = 0;
-		} else { tmpMulti = parseInt($("#excinput").val()) };
+		} else { tmpMulti = parseInt($("#excinput").val()); }
 		multiSelect.exchange = tmpMulti;
 		$("#excamtcustom").removeClass("inactexcamt");
 		$("#excamtcustom").addClass("actexcamt");
 		multiSelect.exchangeCustom = true;
 	} else if (amt != 'custom' && multiSelect.exchange != amt) {
-		if (multiSelect.exchangeCustom == true) {
+		if (multiSelect.exchangeCustom === true) {
 			multiSelect.exchangeCustom = false;
 			$("#excamtcustom").removeClass("actexcamt");
 			$("#excamtcustom").addClass("inactexcamt");
 		} else {
 			$("#excamt" + multiSelect.exchange).removeClass("actexcamt");
 			$("#excamt" + multiSelect.exchange).addClass("inactexcamt");
-		};
-		multiSelect.exchange = amt
+		}
+		multiSelect.exchange = amt;
 		$("#excamt" + amt).removeClass("inactexcamt");
 		$("#excamt" + amt).addClass("actexcamt");
 	}
@@ -400,7 +398,7 @@ function mineMultiToggle(amt) {
 	if (multiSelect.mine != amt) {
 		$("#mineamt" + multiSelect.mine).removeClass("actmineamt");
 		$("#mineamt" + multiSelect.mine).addClass("inactmineamt");
-		multiSelect.mine = amt
+		multiSelect.mine = amt;
 		$("#mineamt" + amt).removeClass("inactmineamt");
 		$("#mineamt" + amt).addClass("actmineamt");
 	}
@@ -415,14 +413,14 @@ function fireOven(amt, time) {
 		tmpOven = amt;
 		oTime = time;
 		sCost = 0;
-	};
+	}
 	if (player.resources.sugar.amount >= sCost && tmpOven > 0 && !$("#ovenbuttonoff").hasClass("firing")) {
 		$("#ovenbuttonon").hide();
 		$("#ovenbuttonoff").show();
 		$("#ovenbuttonoff").addClass("firing");
 		player.resources.sugar.amount -= sCost;
-		player.sTimers.ovenSave.time = oTime
-		player.sTimers.ovenSave.amount = tmpOven
+		player.sTimers.ovenSave.time = oTime;
+		player.sTimers.ovenSave.amount = tmpOven;
 		var oTimer = new Date().getTime();
 		var oDone = oTimer + oTime;
 		tmpOTimer = window.setInterval(
@@ -458,8 +456,8 @@ function fireOven(amt, time) {
 			$("#ovenbuttonon").show();
 			window.clearInterval(tmpOTimer);
 			$("#oventime").html("");
-		})
-	};
+		});
+	}
 }
 
 
@@ -480,7 +478,7 @@ function buyMine(sel) {
 		tmpCost = Math.round(player.mines[sel].price * Math.pow(player.mines[sel].multi, player.mines[sel].amount));
 	} else {
 		tmpCost = Math.round(player.mines[sel].price * Math.pow(player.mines[sel].multi, player.mines[sel].amount) * (Math.pow(player.mines[sel].multi, multiSelect.mine) - 1) / (player.mines[sel].multi - 1));
-	};
+	}
 	if (player.resources.salt.amount >= tmpCost) {
 		player.resources.salt.amount -= tmpCost;
 		player.mines[sel].amount += multiSelect.mine;
@@ -492,13 +490,13 @@ function variance(input, min, max) {
 	tmin = input * min;
 	tmax = input * max;
 	rand = Math.floor(Math.random() * (tmax - tmin + 1)) + tmin;
-	return rand
+	return rand;
 }
 
 function save() {
 	var saveData = JSON.stringify(player);
 	window.localStorage.setItem("player", saveData);
-	status("Game Saved!")
+	status("Game Saved!");
 }
 
 		// Object.keys(player).forEach(function(j) {
@@ -520,53 +518,53 @@ function save() {
 function load() {
 	if (window.localStorage.getItem("player")) {
 		clearTimers();
-		var tmpPlayer = JSON.parse(window.localStorage.getItem("player"))
+		var tmpPlayer = JSON.parse(window.localStorage.getItem("player"));
 		if (tmpPlayer.flags.unlStory) {
 			player.flags.unlStory = JSON.parse(window.localStorage.getItem("player")).flags.unlStory;
-		};
+		}
 		if (tmpPlayer.flags.unlCraft) {
 			player.flags.unlCraft = JSON.parse(window.localStorage.getItem("player")).flags.unlCraft;
-		};
+		}
 		if (tmpPlayer.flags.upgrades) {
 			player.flags.upgrades = JSON.parse(window.localStorage.getItem("player")).flags.upgrades;
-		};
+		}
 		if (tmpPlayer.inventory.items) {
 			player.inventory.items = JSON.parse(window.localStorage.getItem("player")).inventory.items;
-		};
-		$.extend(true, player, JSON.parse(window.localStorage.getItem("player")))
+		}
+		$.extend(true, player, JSON.parse(window.localStorage.getItem("player")));
 		if (player.flags.unlStory.indexOf("s9") == -1) {
 			player.sTimers.ovenSave.time = 0;
 			player.sTimers.ovenSave.amount = 0;
-		};
+		}
 		fSwap();
 		Object.keys(storyText).forEach(function(q) {
 			if (player.flags.unlStory.indexOf(q) != -1) {
 				storyText[q].load();
-			};
+			}
 		});
 		Object.keys(craftables).forEach(function(qx) {
 			if (player.flags.unlCraft.indexOf(qx) != -1) {
 				craftables[qx].onLoad();
-			};
+			}
 		});
 		Object.keys(upgrades).forEach(function(qu) {
 			if (player.flags.upgrades.indexOf(qu) != -1) {
 				upgrades[qu].onLoad();
-			};
-			if ($("#u_" + qu).html() && upgrades[qu].cond() == false) {
+			}
+			if ($("#u_" + qu).html() && upgrades[qu].cond() === false) {
 				$("#u_" + qu).remove();
-			};
+			}
 		});
 		storyNew(true);
-		status("Game Loaded!")
+		status("Game Loaded!");
 	} else {
-		status("No save data!")
-	};
+		status("No save data!");
+	}
 	axeHtml();
 	if (player.sTimers.ovenSave.time > 0) {
 		fireOven(player.sTimers.ovenSave.amount, player.sTimers.ovenSave.time);
-	};
-	if (player.flags.beggar == false) {$(".beg").remove()};
+	}
+	if (player.flags.beggar === false) {$(".beg").remove();}
 }
 
 function deleteSave() {
@@ -574,9 +572,9 @@ function deleteSave() {
 		var confirm = prompt("Please type CONFIRM (case sensitive) to delete your save.");
 		if (confirm == "CONFIRM") { 
 			window.localStorage.removeItem("player");
-			location.reload()
+			location.reload();
 		} else {
-			status("CONFIRMATION FAILED")
+			status("CONFIRMATION FAILED");
 		}
 	}
 }
@@ -593,11 +591,11 @@ function eatShit() {
 function optionToggle(opt) {
 	if (player.options[opt].status) {
 		player.options[opt].status = false;
-		status(player.options[opt].name + " disabled!")
+		status(player.options[opt].name + " disabled!");
 	} else {
 		player.options[opt].status = true;
-		status(player.options[opt].name + " enabled!")
-	};
+		status(player.options[opt].name + " enabled!");
+	}
 	optionCheck();
 }
 
@@ -612,47 +610,47 @@ function credits(bool) {
 function mineCheck() {
 	Object.keys(player.mines).forEach(function(sel) {
 		if ((!$("#" + sel).html() && player.resources.salt.amount * 1.3 >= player.mines[sel].price) || (!$("#" + sel).html() && player.mines[sel].amount >= 1)) {
-			$("#mines").append('<div id="' + sel + '" class="minearea" onClick="buyMine(\'' + sel + '\')"><span id="' + sel + 'amt" class="mineqty">' + player.mines[sel].amount + '</span> <span id="'+ sel +'name" class="minename">' + player.mines[sel].plural + '</span> Owned.<br><div class="minecost minesub">Cost: <span id="' + sel + 'cost">' + player.mines[sel].cost + '</span></div><div class="mineprod minesub"><span id="' + sel + 'prod">' + player.mines[sel].yield + '</span> Sugar /s</div>')
-		};
+			$("#mines").append('<div id="' + sel + '" class="minearea" onClick="buyMine(\'' + sel + '\')"><span id="' + sel + 'amt" class="mineqty">' + player.mines[sel].amount + '</span> <span id="'+ sel +'name" class="minename">' + player.mines[sel].plural + '</span> Owned.<br><div class="minecost minesub">Cost: <span id="' + sel + 'cost">' + player.mines[sel].cost + '</span></div><div class="mineprod minesub"><span id="' + sel + 'prod">' + player.mines[sel].yield + '</span> Sugar /s</div>');
+		}
 		if ($("#" + sel).html()) {
-			$("#" + sel + "prod").html(player.mines[sel].yield)
-		};
+			$("#" + sel + "prod").html(player.mines[sel].yield);
+		}
 		if ($("#" + sel).html()) {
 			if (!$("#" + sel + "name").hasClass("singular") && player.mines[sel].amount == 1) {
 				var tmpName = $("#" + sel + "name").html();
 				var newName = tmpName.slice(0,-1);
 				$("#" + sel + "name").addClass("singular");
 				$("#" + sel + "name").html(newName);
-			};
+			}
 			if ($("#" + sel + "name").hasClass("singular") && player.mines[sel].amount > 1) {
 				$("#" + sel + "name").removeClass("singular");
-				$("#" + sel + "name").append("s")
-			};
+				$("#" + sel + "name").append("s");
+			}
 			var tmpCost = 0;
 			if (multiSelect.mine == 1) {
 				tmpCost = Math.round(player.mines[sel].price * Math.pow(player.mines[sel].multi, player.mines[sel].amount));
 			} else {
 				tmpCost = Math.round(player.mines[sel].price * Math.pow(player.mines[sel].multi, player.mines[sel].amount) * (Math.pow(player.mines[sel].multi, multiSelect.mine) - 1) / (player.mines[sel].multi - 1));
-			};
+			}
 			$("#" + sel + "cost").html(numberformat.formatShort(tmpCost));
 			$("#" + sel + "amt").html(player.mines[sel].amount);
 			if (multiSelect.mine == 1 && player.resources.salt.amount <= Math.round(player.mines[sel].price * Math.pow(player.mines[sel].multi, player.mines[sel].amount))) {
 				$("#" + sel).addClass("minenobuy");			
 			} else if (multiSelect.mine != 1 && player.resources.salt.amount <= Math.round(player.mines[sel].price * Math.pow(player.mines[sel].multi, player.mines[sel].amount) * (Math.pow(player.mines[sel].multi, multiSelect.mine) - 1) / (player.mines[sel].multi - 1))) {
 				$("#" + sel).addClass("minenobuy");
-			};
+			}
 			if ($("#" + sel).hasClass("minenobuy") && multiSelect.mine == 1 && player.resources.salt.amount >= Math.round(player.mines[sel].price * Math.pow(player.mines[sel].multi, player.mines[sel].amount))) {
 				$("#" + sel).removeClass("minenobuy");
 			} else if ($("#" + sel).hasClass("minenobuy") && multiSelect.mine != 1 && player.resources.salt.amount >= Math.round(player.mines[sel].price * Math.pow(player.mines[sel].multi, player.mines[sel].amount) * (Math.pow(player.mines[sel].multi, multiSelect.mine) - 1) / (player.mines[sel].multi - 1))) {
 				$("#" + sel).removeClass("minenobuy");
 			}
 		}
-	})
+	});
 }
 
 function resCheck() {
 	Object.keys(player.resources).forEach(function(res) {
-		if (player.resources[res].amount > 0 && $("#r_" + res).html() == undefined) {
+		if (player.resources[res].amount > 0 && $("#r_" + res).html() === undefined) {
 			drawResource(res);
 		}
 		if ($("#r_" + res).html()) {
@@ -690,16 +688,16 @@ function resCheck() {
 				$("#" + res + "income").html("+/- 0");
 			}
 		}
-	})
+	});
 }
  
 function storeCheck() {
 	Object.keys(storeInv.axes).forEach(function (axe) {
-		if (player.flags.purchased[axe] == false  && !$("#a_" + axe).html() && (3 * player.resources.salt.amount) >= storeInv.axes[axe].cost) {
+		if (player.flags.purchased[axe] === false  && !$("#a_" + axe).html() && (3 * player.resources.salt.amount) >= storeInv.axes[axe].cost) {
 			$("#store").append(
 				"<div id='a_" + axe + "' class='storeitem' onclick='buyItem(\"axe\", \"" + axe + "\")'>" + storeInv.axes[axe].name + "<br>Cost:" + numberformat.formatShort(storeInv.axes[axe].cost) + "<br>Power:" + storeInv.axes[axe].power + "</div>"
-			)
-		};
+			);
+		}
 		if ($("a_" + axe).html() && (3 * player.resources.salt.amount) < storeInv.axes[axe].cost) {
 			$("#a_" + axe).remove();
 		}
@@ -711,33 +709,33 @@ function storeCheck() {
 		}
 	});	
 	Object.keys(storeInv.oven).forEach(function (item) {
-		if (storeInv.oven[item].visible == true && !$("#ot_" + item).html() && (3 * player.resources.salt.amount) >= storeInv.oven[item].cost && player.flags.purchased[item] == false) {
+		if (storeInv.oven[item].visible === true && !$("#ot_" + item).html() && (3 * player.resources.salt.amount) >= storeInv.oven[item].cost && player.flags.purchased[item] === false) {
 			$("#store").append(
 				"<div id=\"ot_" + item + "\" class=\"storeitem\" onclick=\"buyItem('oven', '" + item + "')\">" + storeInv.oven[item].name + "<br>Cost:" + numberformat.formatShort(storeInv.oven[item].cost) + "<hr>" + storeInv.oven[item].description + "</div>"
 			);
-		};
+		}
 		if ($("#ot_" + item).html() && (3 * player.resources.salt.amount) < storeInv.oven[item].cost) {
 			$("#ot_" + item).remove();
-		};
+		}
 		if ($("#ot_" + item).html() && player.resources.salt.amount < storeInv.oven[item].cost) {
 			$("#ot_" + item).addClass("storenobuy");
-		};
+		}
 		if ($("#ot_" + item).hasClass("storenobuy") && player.resources.salt.amount >= storeInv.oven[item].cost) {
 			$("#ot_" + item).removeClass("storenobuy");
 		}
 	});	
 	Object.keys(storeInv.crafting).forEach(function (item) {
-		if (storeInv.crafting[item].visible == true && !$("#cr_" + item).html() && (3 * player.resources.salt.amount) >= storeInv.crafting[item].cost && player.flags.purchased[item] == false) {
+		if (storeInv.crafting[item].visible === true && !$("#cr_" + item).html() && (3 * player.resources.salt.amount) >= storeInv.crafting[item].cost && player.flags.purchased[item] === false) {
 			$("#store").append(
 				"<div id='cr_" + item + "' class='storeitem' onclick='buyItem(\"crafting\", \"" + item + "\")'>" + storeInv.crafting[item].name + "<br>Cost:" + numberformat.formatShort(storeInv.crafting[item].cost) + "<hr>" + storeInv.crafting[item].description + "</div>"
 			);
-		};
+		}
 		if ($("#cr_" + item).html() && (3 * player.resources.salt.amount) < storeInv.crafting[item].cost) {
 			$("#cr_" + item).remove();
-		};
+		}
 		if ($("#cr_" + item).html() && player.resources.salt.amount < storeInv.crafting[item].cost) {
 			$("#cr_" + item).addClass("storenobuy");
-		};
+		}
 		if ($("#cr_" + item).hasClass("storenobuy") && player.resources.salt.amount >= storeInv.crafting[item].cost) {
 			$("#cr_" + item).removeClass("storenobuy");
 		}
@@ -746,87 +744,87 @@ function storeCheck() {
 
 function tooltipCheck() {
 	$("#autochoptooltip").html("Current delay:<br>" + player.autoChopDelay + " ms.");
-	if (player.flags.beggar == true) {
+	if (player.flags.beggar === true) {
 		var begAmt = 5;
 		if (player.flags.unlStory.indexOf("s3") != -1) {
 			begAmt = 10;
-		};
-		$("#begtooltip").html("Gain 1-" + begAmt + " salt.<br>Takes 2 seconds.")
-	};
+		}
+		$("#begtooltip").html("Gain 1-" + begAmt + " salt.<br>Takes 2 seconds.");
+	}
 	if (player.flags.unlStory.indexOf("s9") != -1) {
 		var tmpOven = parseInt($("#ovenamt").val());
 		if (tmpOven == "undefined" || isNaN(tmpOven)) {
 			tmpOven = 0;
-		};
+		}
 		$("#ovenbuttontooltip").html("Cooking:<br>" + tmpOven + " cubes.<br><br>Costs:<br>" + tmpOven * 10 + " sugar.<br><br>Delay:<br>" + player.ovenTime / 1000 + " seconds.");
-	};
-	if (player.flags.purchased.basiccrafting == true) {
+	}
+	if (player.flags.purchased.basiccrafting === true) {
 		Object.keys(craftables).forEach(function(id) {
 			if ($("#" + id).html()) {
 				var costHtml = "";
 				Object.keys(craftables[id].cost).forEach(function(iq) {
 					if (player.resources[iq].amount < craftables[id].cost[iq]) {
-						costHtml += "<span class='highcost'>" + player.resources[iq].amount + "/" + craftables[id].cost[iq] + " " + player.resources[iq].name + "</span><br>"
+						costHtml += "<span class='highcost'>" + player.resources[iq].amount + "/" + craftables[id].cost[iq] + " " + player.resources[iq].name + "</span><br>";
 					} else {
-						costHtml += "<span class='lowcost'>" + craftables[id].cost[iq] + "/"+ craftables[id].cost[iq] + " " + player.resources[iq].name + "</span><br>"
+						costHtml += "<span class='lowcost'>" + craftables[id].cost[iq] + "/"+ craftables[id].cost[iq] + " " + player.resources[iq].name + "</span><br>";
 					}
 				});
-				$("#" + id + "tt").html(craftables[id].description + "<hr><span class='craftcost'>Costs:<hr></span>" + costHtml)
+				$("#" + id + "tt").html(craftables[id].description + "<hr><span class='craftcost'>Costs:<hr></span>" + costHtml);
 			}
 		});
-	};
+	}
 	if (player.stats.axePower >= 50) {
 		Object.keys(upgrades).forEach(function(uq) {
 			if ($("#u_" + uq).html()) {
 				var costHtml = "";
 				Object.keys(upgrades[uq].cost).forEach(function(ux) {
 					if (player.resources[ux].amount < upgrades[uq].cost[ux]) {
-						costHtml += "<span class='highcost'>" + upgrades[uq].cost[ux] + " " + player.resources[ux].name + "</span><br>"
+						costHtml += "<span class='highcost'>" + upgrades[uq].cost[ux] + " " + player.resources[ux].name + "</span><br>";
 					} else {
 						costHtml += "<span class='lowcost'>" + upgrades[uq].cost[ux] + " " + player.resources[ux].name + "</span><br>";
-					};
+					}
 				});
 				$("#" + uq + "tt").html(upgrades[uq].description + "<hr><span class='upgradecost'>Costs:<hr></span>" + costHtml);
 			}
 		});
-	};
+	}
 }
 
 function optionCheck() {
 	Object.keys(player.options).forEach(function(opt) {
 		if (player.options[opt].status && $("#o_" + opt).hasClass("optionoff")) {
-			$("#o_" + opt).removeClass("optionoff")
+			$("#o_" + opt).removeClass("optionoff");
 		}
 		if (!player.options[opt].status && !$("#o_" + opt).hasClass("optionoff")) {
-			$("#o_" + opt).addClass("optionoff")
+			$("#o_" + opt).addClass("optionoff");
 		}
-	})
+	});
 }
 
 function excCheck() {
 	Object.keys(player.resources).forEach(function(res) {
 		if (!player.flags[res].unlocked && $("#" + res + "exchange").html()) {
 			$("#" + res + "exchange").remove();
-		};
+		}
 		if (player.flags[res].visible && !player.flags[res].unlocked && !$("#" + res + "unlock").html()) {
 			excUnlockHtml(res);
-		};
+		}
 		if (player.flags[res].unlocked && $("#" + res + "unlock").html()) {
 			$("#" + res + "unlock").remove();
-		};
+		}
 		if ($("#" + res + "unlock").html()) {
 			if (player.resources[exchange[res].unlock.type].amount < exchange[res].unlock.amount) {
 				$("#" + res + "unlock").addClass("excnounlock");
-			};
+			}
 			if ($("#" + res + "unlock").hasClass("excnounlock") && player.resources[exchange[res].unlock.type].amount >= exchange[res].unlock.amount) {
 				$("#" + res + "unlock").removeClass("excnounlock");
-			};
-		};
-		if (multiSelect.exchangeCustom == true) {
+			}
+		}
+		if (multiSelect.exchangeCustom === true) {
 			var tmpMulti = parseInt($("#excinput").val());
 			if (isNaN(tmpMulti)) {
 				tmpMulti = 0;
-			};
+			}
 			multiSelect.exchange = tmpMulti;
 		}
 		if (player.flags[res].unlocked && !$("#" + res + "exchange").html()) {
@@ -836,8 +834,8 @@ function excCheck() {
 				exchange[res].buy * multiSelect.exchange + "</span> Salt<span id='" + res + "buytooltip' class='tooltiptext' onclick='event.stopPropagation()'>Buy <span class='buymulti" + res + "'>" + multiSelect.exchange + "</span> " + player.resources[res].name + " for <span class='" + res + "buy'>" + exchange[res].buy * multiSelect.exchange + "</span> Salt.</span></div>" + 
 				"<div id='sell" + res + "' class='excsell exctrade tooltipparent' onClick='exchangeF(\"sell\",\"" + res + "\")'>Sell:<br><span class='" + res + "sell'>" +
 				exchange[res].sell * multiSelect.exchange + "</span> Salt<span id='" + res + "selltooltip' class='tooltiptext'>Sell <span class='sellmulti" + res + "'>" + multiSelect.exchange + "</span> " + player.resources[res].name + " for <span class='" + res + "sell'>" + exchange[res].sell * multiSelect.exchange + "</span> Salt.</span></div></div>"
-			)
-		};
+			);
+		}
 		if ($("#" + res + "exchange").html() && multiSelect.exchange == "max") {
 			$("." + res + "buy").html(numberformat.formatShort(Math.floor(player.resources.salt.amount / exchange[res].buy) * exchange[res].buy));
 			$("." + res + "sell").html(numberformat.formatShort(Math.floor(player.resources[res].amount) * exchange[res].sell));
@@ -853,7 +851,7 @@ function excCheck() {
 				$("#buy" + res).removeClass("excnotrade");
 			} 
 			if ($("#sell" + res).hasClass("excnotrade") && player.resources[res].amount >= 1) {
-				$("#sell" + res).removeClass("excnotrade")
+				$("#sell" + res).removeClass("excnotrade");
 			}
 		} else if ($("#" + res + "exchange").html()) {
 			$("." + res + "buy").html(numberformat.formatShort(multiSelect.exchange * exchange[res].buy));
@@ -873,12 +871,12 @@ function excCheck() {
 				$("#sell" + res).removeClass("excnotrade");
 			}
 		}
-	})
+	});
 }
 
 function ovenCheck() {
 	$("#ovenamt").attr("max", Math.min(player.ovenMax, Math.floor(player.resources.sugar.amount / 10)));
-	if (player.options.autofire.status == true && !$("#ovenbuttonoff").hasClass("firing")) {fireOven()};
+	if (player.options.autofire.status === true && !$("#ovenbuttonoff").hasClass("firing")) {fireOven();}
 }
 
 
@@ -923,7 +921,7 @@ function status(mes) {
 		2000,
 		function() {
 		$("#savestatus").html("");
-		$("#savestatus").css("color","#662")}
+		$("#savestatus").css("color","#662");}
 	);
 }
 
@@ -938,9 +936,9 @@ function flash(id, start, end, ms) {
 				function() {
 				$("#" + id).css("background-color","");
 				}
-			)
+			);
 		}
-	)
+	);
 }
 
 var tick = function() {
@@ -956,23 +954,23 @@ var tick = function() {
 	storyNew(false);
 	tooltipCheck();
 	Object.keys(player.mines).forEach(function(sel) {
-		tgain = player.mineProd * player.mines[sel].yield * player.mines[sel].amount / 10
+		tgain = player.mineProd * player.mines[sel].yield * player.mines[sel].amount / 10;
 		player.resources.sugar.amount += tgain;
 		resIncomes.sugar.current += tgain;
 	});
 	if (player.resources.syrup.amount > 0) {
 		player.resources.syrup.amount -= (player.stats.syrupConsumption / 10);
 		resIncomes.syrup.current -= player.stats.syrupConsumption / 10;
-	};
-	if (player.resources.syrup.amount < 0) {player.resources.syrup.amount = 0};
-}
+	}
+	if (player.resources.syrup.amount < 0) {player.resources.syrup.amount = 0;}
+};
 
 var asave = function() {
 	if (player.options.autosave.status) {
 		save();
 		status("Game Autosaved!");
 	}
-}
+};
 
 var incomeUpdate = function() {
 	Object.keys(player.resources).forEach(function(q) {
@@ -980,10 +978,10 @@ var incomeUpdate = function() {
 			resIncomes[q].previous.shift();
 		}
 		resIncomes[q].previous.push(resIncomes[q].current);
-		resIncomes[q].avg = resIncomes[q].previous.reduce(function(ttotal, tcurrent) {return ttotal + tcurrent}) / resIncomes[q].previous.length;
+		resIncomes[q].avg = resIncomes[q].previous.reduce(function(ttotal, tcurrent) {return ttotal + tcurrent;}) / resIncomes[q].previous.length;
 		resIncomes[q].current = 0;
 	});
-}
+};
 
 function init() {
 	Object.keys(player.resources).forEach(function(q) {
@@ -999,7 +997,7 @@ window.onload=function() {
 	var tTimer = window.setInterval(tick, 100);
 	var iTimer = window.setInterval(incomeUpdate, 1000);
 	var aTimer = window.setInterval(asave, 60000);
-}
+};
 
 // > content:
 
@@ -1011,6 +1009,7 @@ window.onload=function() {
 // > general cleanup:
 
 // > syrup consumption tooltip
+// > forest tree ratio tooltips
 // > offline production
 // > add color highlighting for certain items in story text
 // > empty pane decoration

@@ -5,8 +5,8 @@ var upgrades = {
 		cost: {
 			syrup:50
 		},
-		cond: function() {return player.resources.syrup.amount >= 20},
-		onBuy: function() {player.stats.axeMod = 1.5; axeHtml()},
+		cond: function() {return player.resources.syrup.amount >= 20;},
+		onBuy: function() {player.stats.axeMod = 1.5; axeHtml();},
 		onLoad: function() {}		
 	},
 	sugarrush: {
@@ -15,8 +15,8 @@ var upgrades = {
 		cost: {
 			syrup:50
 		},
-		cond: function() {return player.resources.syrup.amount >= 20},
-		onBuy: function() {player.minimumChop = 500},
+		cond: function() {return player.resources.syrup.amount >= 20;},
+		onBuy: function() {player.minimumChop = 500;},
 		onLoad: function() {}
 	},
 	impstamina: {
@@ -26,8 +26,8 @@ var upgrades = {
 			syrup:100
 		
 		},
-		cond: function() {return player.resources.syrup.amount >= 45},
-		onBuy: function() {player.autoChopDelay = 1500},
+		cond: function() {return player.resources.syrup.amount >= 45;},
+		onBuy: function() {player.autoChopDelay = 1500;},
 		onLoad: function() {}
 	},
 	hackandslash: {
@@ -36,8 +36,8 @@ var upgrades = {
 		cost: {
 			syrup:100
 		},
-		cond: function() {return player.flags.upgrades.indexOf("powerfularm") != -1},
-		onBuy: function() {player.minimumChop = 500},
+		cond: function() {return player.flags.upgrades.indexOf("powerfularm") != -1;},
+		onBuy: function() {player.minimumChop = 500;},
 		onLoad: function() {}
 	},
 
@@ -48,8 +48,8 @@ var upgrades = {
 			syrup:200,
 			sugar:10000
 		},
-		cond: function() {return player.flags.upgrades.indexOf("sugarrush") != -1 && player.mines.pebblebeach.amount >= 3},
-		onBuy: function() {player.mines.pebblebeach.price = 35000},
+		cond: function() {return player.flags.upgrades.indexOf("sugarrush") != -1 && player.mines.pebblebeach.amount >= 3;},
+		onBuy: function() {player.mines.pebblebeach.price = 35000;},
 		onLoad: function() {}
 	},
 	impulsecontrol: {
@@ -58,8 +58,8 @@ var upgrades = {
 		cost: {
 			syrup:200
 		},
-		cond: function() {return player.resources.syrup.amount >= 90},
-		onBuy: function() {player.stats.syrupConsumption = 1},
+		cond: function() {return player.resources.syrup.amount >= 90;},
+		onBuy: function() {player.stats.syrupConsumption = 1;},
 		onLoad: function() {}
 	},
 	zengardens: {
@@ -68,11 +68,11 @@ var upgrades = {
 		cost: {
 			syrup:100
 		},
-		cond: function() {return player.flags.upgrades.indexOf("sugarrush") != -1 && player.mines.rockgarden.amount >= 5},
-		onBuy: function() {player.mines.rockgarden.yield *= 3},
+		cond: function() {return player.flags.upgrades.indexOf("sugarrush") != -1 && player.mines.rockgarden.amount >= 5;},
+		onBuy: function() {player.mines.rockgarden.yield *= 3;},
 		onLoad: function() {}
 	},
-}
+};
 
 function buyUpgrade(id) {
 	Object.keys(upgrades[id].cost).forEach(function(u) {
@@ -91,18 +91,18 @@ function buyUpgrade(id) {
 function upgradeCheck() {
 	Object.keys(upgrades).forEach(function(u) {
 		if ((upgrades[u].cond()) && !$("#u_" + u).html() && player.flags.upgrades.indexOf(u) == -1) {
-			$("#upgrades").append('<div id="u_' + u + '" class="upgrade tooltipparent" onClick="buyUpgrade(\'' + u + '\')">' + upgrades[u].name + '<span id="' + u + 'tt" class="tooltiptext upgradett"></span></div>')
-		};
+			$("#upgrades").append('<div id="u_' + u + '" class="upgrade tooltipparent" onClick="buyUpgrade(\'' + u + '\')">' + upgrades[u].name + '<span id="' + u + 'tt" class="tooltiptext upgradett"></span></div>');
+		}
 		if ($("#u_" + u).html() && player.flags.upgrades.indexOf(u) != -1) {
 			$("#u_" + u).remove();
-		};
+		}
 		var costcheck = false;
 		Object.keys(upgrades[u].cost).forEach(function(uu) {
 			if (player.resources[uu].amount < upgrades[u].cost[uu]) {
 				costcheck = true;
 			}
 		});
-		if (costcheck == true) {
+		if (costcheck === true) {
 			$("#u_" + u).addClass("upgradeexpensive");
 		} else {
 			$("#u_" + u).removeClass("upgradeexpensive");

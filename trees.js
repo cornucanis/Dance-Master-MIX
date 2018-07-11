@@ -61,14 +61,14 @@ var trees = {
 		yield:12,
 		syield: 22
 	}
-}
+};
 
 var currentTree = {
 		name:"nothing",
 		health:0,
 		yield:0,
 		syield:0
-}
+};
 
 var forests = {
 	meadow: {
@@ -93,14 +93,14 @@ var forests = {
 		c:{name:"m2", cap:13},
 		d:{name:"m3", cap:15}
 	},
-}
+};
 
 
 function fSwap(frst) {
 	if (frst) {
 	player.flags.forestLocale = frst;
-	};
-	$("#fname").html(forests[player.flags.forestLocale].name)
+	}
+	$("#fname").html(forests[player.flags.forestLocale].name);
 }
 
 function updateResources() {
@@ -118,13 +118,13 @@ function chopTree() {
 		var selFor = player.flags.forestLocale;
 		var rnd = Math.ceil(forests[selFor].l * Math.random());
 		if (forests[selFor].a && rnd <= forests[selFor].a.cap) {
-			$.extend(currentTree, trees[forests[selFor].a.name])
+			$.extend(currentTree, trees[forests[selFor].a.name]);
 		} else if (forests[selFor].b && rnd <= forests[selFor].b.cap) {
-			$.extend(currentTree, trees[forests[selFor].b.name])
+			$.extend(currentTree, trees[forests[selFor].b.name]);
 		} else if (forests[selFor].c && rnd <= forests[selFor].c.cap) {
-			$.extend(currentTree, trees[forests[selFor].c.name])
+			$.extend(currentTree, trees[forests[selFor].c.name]);
 		} else if (forests[selFor].d && rnd <= forests[selFor].d.cap) {
-			$.extend(currentTree, trees[forests[selFor].d.name])
+			$.extend(currentTree, trees[forests[selFor].d.name]);
 		}
 		tmpMod = (variance(10,0.8,1.2) / 10);
 		currentTree.health = Math.round(tmpMod * currentTree.health);
@@ -158,19 +158,19 @@ function chopTree() {
 			player.resources.cinnamon.amount += currentTree.yield;
 			resIncomes.cinnamon.current += currentTree.yield;
 			if (player.stats.axePower >= 50) {
-				player.resources.syrup.amount += currentTree.syield
+				player.resources.syrup.amount += currentTree.syield;
 				resIncomes.syrup.current += currentTree.syield;
-			};
+			}
 			flash("r_cinnamon", "#411", "#966", 400);
 			flash("cinnamon_n", "#321", "#966", 400);
-			$.extend(currentTree, trees.none)
+			$.extend(currentTree, trees.none);
 			$("#choplessbutton").removeClass("chopping");
 			$("#choplessbutton").hide();
 			$("#chopbutton").show();
 			$("#treetime").html("");
 			window.clearInterval(tmpTreeTimer);
 			treeHtml();
-			if (player.options.autochop.status == true) {
+			if (player.options.autochop.status === true) {
 				acTimer = window.setTimeout(function() {chopTree();}, player.autoChopDelay);
 				$("#autochopbar").show();
 				$("#autochopbar").animate(
@@ -181,8 +181,8 @@ function chopTree() {
 						$("#autochopbar").css("width","0%");
 					}
 				);
-			};
-		})
+			}
+		});
 	}
 }
 
